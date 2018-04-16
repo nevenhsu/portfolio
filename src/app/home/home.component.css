@@ -1,0 +1,13 @@
+.slide {
+  white-space: nowrap;
+  width: 100%;
+  overflow-x: auto;
+  padding-bottomng: 15px;
+}
+
+.slideItem {
+  display: inline-block;
+  width: 100px;
+  height: 200px;
+  background-color: aquamarine;
+}
