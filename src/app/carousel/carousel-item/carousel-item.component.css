@@ -1,0 +1,22 @@
+.wrapping {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+}
+
+.slide-item {
+  position: relative;
+  width: 100%;
+  padding-top: 88.889%;
+  list-style-type: none;
+  background-color: aquamarine;
+}
+
+@media (max-aspect-ratio: 8/5) {
+  .slide-item {
+    padding-top: 56.25%;
+  }
+}

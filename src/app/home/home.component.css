@@ -1,13 +1,15 @@
-.slide {
-  white-space: nowrap;
-  width: 100%;
-  overflow-x: auto;
-  padding-bottomng: 15px;
+.wrapping {
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  margin: 0 -15px;
 }
 
-.slideItem {
-  display: inline-block;
-  width: 100px;
-  height: 200px;
-  background-color: aquamarine;
+.carousel-vertical {
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
 }

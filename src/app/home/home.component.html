@@ -1,11 +1,11 @@
-<div class="text-center">
-    <h2>Title</h2>
-    <h3>Subtitle</h3>
-</div>
+<div appWindowsSize
+     (onResize)="recheck($event)"
+     class="wrapping">
 
-<div class="slide">
-    <div class="slideItem"></div>
-    <div class="slideItem"></div>
-    <div class="slideItem"></div>
-    <div class="slideItem"></div>
+    <div class="text-center">
+        <h2>Title</h2>
+        <h3>Subtitle</h3>
+    </div>
+
+    <app-carousel [class.carousel-vertical]="!isXS" [isXS]="isXS"></app-carousel>
 </div>

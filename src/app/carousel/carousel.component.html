@@ -1,3 +1,30 @@
-<p>
-  carousel works!
-</p>
+<!--    center x    -->
+<div [ngClass]="{'carousel-horizon': isXS, 'carousel-vertical': !isXS}"
+     class="carousel no-gutters">
+
+    <!--    scroll x or y    -->
+    <ul (swipeleft)="updateSlides(sliding.Right)"
+        (swiperight)="updateSlides(sliding.Left)"
+        (swipeup)="updateSlides(sliding.Down)"
+        (swipedown)="updateSlides(sliding.Up)"
+        (panleft)="panSlides($event, sliding.Right)"
+        (panright)="panSlides($event, sliding.Left)"
+        (panup)="panSlides($event, sliding.Down)"
+        (pandown)="panSlides($event, sliding.Up)"
+        (panstart)="isPanning = true; carouselState = 'PAN'"
+        (panend)="slideThreshold(); distanceX = 0; distanceY = 0; updateState = 0; isPanning = false;"
+        [class.slide-transition]="animating"
+        [style.left]="distanceX"
+        class="row slide">
+        <app-carousel-item *ngFor="let slide of slides; index as i; first as isFirst"
+                           [slideItem]="slide"
+                           (onClick)="slideToItem($event)"
+                           [style.left.px]="distanceX"
+                           [style.top.px]="distanceY"
+                           class="slide-item col-2 col-sm-6 offset-sm-3 my-sm-4"
+                           [class.offset-1]="isFirst"
+                           [class.slide-item-transition]="!isPanning">
+        </app-carousel-item>
+
+    </ul>
+</div>

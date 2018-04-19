@@ -1,0 +1,33 @@
+.carousel {
+  position: absolute;
+  left: 50vw;
+  transition: translate3d 0.2s ease-out;
+}
+
+.carousel-horizon {
+  width: 400vw;
+  transform: translate3d(-50%, 0, 0);
+}
+
+.carousel-vertical {
+  width: 100vw;
+  top: 50vh;
+  transform: translate3d(-50%, -50%, 0);
+}
+
+.slide {
+  white-space: nowrap;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  background-color: antiquewhite;
+}
+
+.slide-item {
+  position: relative;
+}
+
+.slide-item-transition {
+  transition: all 175ms ease-out;
+  -webkit-transition: all 175ms ease-out;
+}
