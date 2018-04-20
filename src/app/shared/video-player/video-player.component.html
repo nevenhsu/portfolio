@@ -1,0 +1,10 @@
+
+<ng-container *ngIf="playerVars">
+    <youtube-player [videoId]="videoId"
+                    [width]="width"
+                    [height]="height"
+                    [playerVars]="playerVars"
+                    (ready)="initPlayer($event)"
+                    (change)="onStateChange($event)"
+    ></youtube-player>
+</ng-container>

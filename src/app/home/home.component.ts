@@ -1,33 +1,32 @@
-import { AfterViewChecked, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit, AfterViewChecked {
+export class HomeComponent implements OnInit {
 
+  xsSize = 576;
   isXS: boolean;
-  isChecked: boolean;
+  windowWidth: number;
+  windowHeight: number;
+  videoId: string;
 
   constructor() { }
 
   ngOnInit() {
-    this.isXS = window.innerWidth < 576;
-  }
+    this.windowWidth = window.innerWidth;
+    this.windowHeight = window.innerHeight;
+    this.isXS = this.windowWidth < this.xsSize;
 
-  ngAfterViewChecked() {
-    if (!this.isChecked) {
-      const INTERVAL = setTimeout(() => {
-        this.isChecked = true;
-        clearTimeout(INTERVAL);
-      });
-    }
+    this.videoId = 'tCCY31XxN_Y';
   }
 
   recheck(event) {
-    this.isXS = event.x < 576;
-    this.isChecked = false;
+    this.windowWidth = event.width;
+    this.windowHeight = event.height;
+    this.isXS = this.windowWidth < this.xsSize;
   }
 
 

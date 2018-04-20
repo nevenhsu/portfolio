@@ -12,18 +12,17 @@
         (panup)="panSlides($event, sliding.Down)"
         (pandown)="panSlides($event, sliding.Up)"
         (panstart)="isPanning = true; carouselState = 'PAN'"
-        (panend)="slideThreshold(); distanceX = 0; distanceY = 0; updateState = 0; isPanning = false;"
-        [class.slide-transition]="animating"
-        [style.left]="distanceX"
+        (panend)="resetState()"
         class="row slide">
+
         <app-carousel-item *ngFor="let slide of slides; index as i; first as isFirst"
                            [slideItem]="slide"
                            (onClick)="slideToItem($event)"
-                           [style.left.px]="distanceX"
-                           [style.top.px]="distanceY"
                            class="slide-item col-2 col-sm-6 offset-sm-3 my-sm-4"
                            [class.offset-1]="isFirst"
-                           [class.slide-item-transition]="!isPanning">
+                           [class.slide-item-transition]="!isPanning"
+                           [style.left.px]="distanceX"
+                           [style.top.px]="distanceY">
         </app-carousel-item>
 
     </ul>

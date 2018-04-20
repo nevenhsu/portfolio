@@ -17,7 +17,7 @@ export class CarouselComponent implements OnInit {
   items: Array<any> = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
   centerIndex: number;
   slides: Array<any>;
-  totalSlides: number;
+  totalSlides = 3;
 
   sliding = Sliding;
   carouselState: string;
@@ -25,12 +25,10 @@ export class CarouselComponent implements OnInit {
   distanceX = 0;
   distanceY = 0;
   updateState = 0;
-  animating: boolean;
 
   constructor() { }
 
   ngOnInit() {
-    this.totalSlides = 5;
     // FIXME: should await loading items
     this.centerIndex = 0;
     this.resetSlides(this.centerIndex);
@@ -45,15 +43,18 @@ export class CarouselComponent implements OnInit {
   }
 
   get totalItems(): number {
-    if (!this.items) { return 0; }
+    if (!this.items) {
+      return 0;
+    }
     return this.items.length;
   }
+
   get centerDistance(): number {
     return Math.floor(this.totalSlides / 2);
   }
 
   loopIndex(value: number, array: Array<any> = this.items): number {
-    while ( value < 0 ) {
+    while (value < 0) {
       value += array.length;
     }
     return value % array.length;
@@ -72,7 +73,9 @@ export class CarouselComponent implements OnInit {
   }
 
   resetSlides(center: number) {
-    if (this.totalItems === 0) {return; }
+    if (this.totalItems === 0) {
+      return;
+    }
 
     this.centerIndex = center;
     this.slides = [];
@@ -88,28 +91,33 @@ export class CarouselComponent implements OnInit {
   updateSlides(sliding: Sliding) {
     switch (sliding) {
       case Sliding.Right : {
-        if (!this.isXS) {break; }
+        if (!this.isXS) {
+          break;
+        }
         this.slideToNext();
         break;
       }
 
       case Sliding.Left : {
-        if (!this.isXS) {break; }
+        if (!this.isXS) {
+          break;
+        }
         this.slideToPrev();
-        this.distanceX = -this.itemWidth;
-        this.animating = true;
-        this.distanceX = 0;
         break;
       }
 
       case Sliding.Down: {
-        if (this.isXS) {break; }
+        if (this.isXS) {
+          break;
+        }
         this.slideToNext();
         break;
       }
 
       case Sliding.Up: {
-        if (this.isXS) {break; }
+        if (this.isXS) {
+          break;
+        }
         this.slideToPrev();
         break;
       }
@@ -131,38 +139,47 @@ export class CarouselComponent implements OnInit {
   }
 
   panSlides(event, sliding: Sliding) {
-    let value = this.isXS ? event.deltaX : event.deltaY;
-    value *= 1.5;
-    this.distanceX = this.isXS ? value % this.itemWidth : 0;
-    this.distanceY = this.isXS ? 0 : value % this.itemHeight;
+    const MULTIPLE = 1.5;
+    const VALUE = this.isXS ? event.deltaX * MULTIPLE : event.deltaY * MULTIPLE;
+    this.distanceX = this.isXS ? VALUE % this.itemWidth : 0;
+    this.distanceY = this.isXS ? 0 : VALUE % this.itemHeight;
 
-    const BASE = this.isXS ? this.itemWidth : this.itemHeight;
-    const STATE = this.calculateTimes(value, BASE);
+    const UNIT = this.isXS ? this.itemWidth : this.itemHeight;
+    const STATE = this.calculateTimes(VALUE, UNIT);
     if (STATE !== this.updateState) {
       this.updateSlides(sliding);
       this.updateState = STATE;
     }
   }
 
-  calculateTimes(value: number, base: number): number {
-    return value >= 0 ? Math.floor(value / base) : Math.ceil(value / base);
+  calculateTimes(value: number, unit: number): number {
+    return value >= 0 ? Math.floor(value / unit) : Math.ceil(value / unit);
   }
 
   slideToItem(item: any) {
+    console.log(item, this.slides, this.centerDistance);
+
     const INDEX = this.slides.indexOf(item);
-    if ( INDEX > this.centerDistance ) {
+    console.log('O', INDEX);
+
+    for (let i = INDEX; i > this.centerDistance; i--) {
       this.updateNextSlide();
-    } else {
+      console.log('+', INDEX);
+    }
+
+    for (let i = INDEX; i < this.centerDistance; i++) {
       this.updatePrevSlide();
+      console.log('-', INDEX);
     }
   }
 
   slideThreshold() {
+    const DENOMINATOR = 2;
     const X = this.distanceX % this.itemWidth;
     const Y = this.distanceY % this.itemHeight;
-    if (Y > this.itemHeight / 2 || X > this.itemWidth / 2) {
+    if (Y > this.itemHeight / DENOMINATOR || X > this.itemWidth / DENOMINATOR) {
       this.updatePrevSlide();
-    } else if (Y < -this.itemHeight / 2 || X < -this.itemWidth / 2 ) {
+    } else if (Y < -this.itemHeight / DENOMINATOR || X < -this.itemWidth / DENOMINATOR) {
       this.updateNextSlide();
     }
   }
@@ -176,4 +193,13 @@ export class CarouselComponent implements OnInit {
     this.updateSlides(this.sliding.Up);
     this.updateSlides(this.sliding.Left);
   }
+
+  resetState() {
+    this.slideThreshold();
+    this.distanceX = 0;
+    this.distanceY = 0;
+    this.isPanning = false;
+    this.updateState = 0;
+  }
+
 }

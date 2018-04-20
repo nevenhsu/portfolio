@@ -12,6 +12,9 @@ import { WorkComponent } from './work/work.component';
 import { CarouselComponent } from './carousel/carousel.component';
 import { CarouselItemComponent } from './carousel/carousel-item/carousel-item.component';
 import { WindowsSizeDirective } from './windows-size.directive';
+import { YoutubePlayerModule } from 'ngx-youtube-player';
+import { VideoPlayerComponent } from 'shared/video-player/video-player.component';
+
 
 export class MyHammerConfig extends HammerGestureConfig {
   overrides = <any>{
@@ -34,14 +37,15 @@ export class MyHammerConfig extends HammerGestureConfig {
     WorkComponent,
     CarouselComponent,
     CarouselItemComponent,
-    WindowsSizeDirective
+    WindowsSizeDirective,
+    VideoPlayerComponent
   ],
   imports: [
     BrowserModule,
     NgbModule.forRoot(),
     AppRoutingModule,
     BrowserAnimationsModule,
-
+    YoutubePlayerModule
   ],
   providers: [{
     provide: HAMMER_GESTURE_CONFIG,
