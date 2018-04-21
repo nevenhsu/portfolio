@@ -1,8 +1,8 @@
 .carousel {
   position: absolute;
   left: 50vw;
-  transition: translate3d 0.2s ease-out;
-  -webkit-transition: translate3d 0.2s ease-out;
+  transition: translate3d 0.25s ease-out;
+  -webkit-transition: translate3d 0.25s ease-out;
 }
 
 .carousel-horizon {
@@ -21,7 +21,7 @@
   padding: 0;
   margin: 0;
   list-style-type: none;
-  background-color: antiquewhite;
+  background-color: transparent;
 }
 
 .slide-item {
@@ -29,6 +29,6 @@
 }
 
 .slide-item-transition {
-  transition: all 175ms ease-out;
-  -webkit-transition: all 175ms ease-out;
+  transition: all 0.25s ease-out;
+  -webkit-transition: all 0.25s ease-out;
 }

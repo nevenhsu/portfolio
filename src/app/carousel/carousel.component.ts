@@ -1,12 +1,26 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Sliding } from 'shared/Enums';
 import { CarouselItemComponent } from './carousel-item/carousel-item.component';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 
 @Component({
   selector: 'app-carousel',
   templateUrl: './carousel.component.html',
   styleUrls: ['./carousel.component.css'],
+  animations: [
+      trigger('slideState', [
+          transition('* => next', [
+              style({left: '-100%'}),
+              animate('0.2s ease-out')
+          ]),
+
+          transition('* => prev', [
+              style({left: '100%'}),
+              animate('0.2s ease-out')
+          ])
+      ])
+  ]
 })
 
 export class CarouselComponent implements OnInit {
@@ -17,10 +31,9 @@ export class CarouselComponent implements OnInit {
   items: Array<any> = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
   centerIndex: number;
   slides: Array<any>;
-  totalSlides = 3;
+  totalSlides = 5;
 
   sliding = Sliding;
-  carouselState: string;
   isPanning = false;
   distanceX = 0;
   distanceY = 0;
@@ -157,19 +170,13 @@ export class CarouselComponent implements OnInit {
   }
 
   slideToItem(item: any) {
-    console.log(item, this.slides, this.centerDistance);
-
     const INDEX = this.slides.indexOf(item);
-    console.log('O', INDEX);
 
     for (let i = INDEX; i > this.centerDistance; i--) {
       this.updateNextSlide();
-      console.log('+', INDEX);
     }
-
     for (let i = INDEX; i < this.centerDistance; i++) {
       this.updatePrevSlide();
-      console.log('-', INDEX);
     }
   }
 

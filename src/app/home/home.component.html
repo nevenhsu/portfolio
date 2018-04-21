@@ -9,13 +9,12 @@
 
     <app-carousel [class.carousel-vertical]="!isXS" [isXS]="isXS"></app-carousel>
 
-    <div class="wrapping-video">
-        <app-video-player [videoId]="videoId"
-                          [width]="windowWidth"
-                          [height]="windowHeight"
-                          [isXS]="isXS"
-                          class="background-video"
-        ></app-video-player>
-    </div>
+    <app-video-player [videoId]="videoId"
+                      [width]="windowWidth"
+                      [height]="windowHeight"
+                      [isBG]="true"
+                      class="wrapping-background-video"
+    ></app-video-player>
+
 
 </div>

@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
     this.windowHeight = window.innerHeight;
     this.isXS = this.windowWidth < this.xsSize;
 
-    this.videoId = 'tCCY31XxN_Y';
+    this.videoId = '8LOUBrI2zcM';
   }
 
   recheck(event) {

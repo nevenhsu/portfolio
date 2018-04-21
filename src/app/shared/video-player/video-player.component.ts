@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, DoCheck, Input, OnInit } from '@angular/core';
 import SuggestedVideoQuality = YT.SuggestedVideoQuality;
 
 @Component({
@@ -6,16 +6,19 @@ import SuggestedVideoQuality = YT.SuggestedVideoQuality;
   templateUrl: './video-player.component.html',
   styleUrls: ['./video-player.component.scss']
 })
-export class VideoPlayerComponent implements OnInit {
+export class VideoPlayerComponent implements OnInit, DoCheck {
 
   @Input('isXS') isXS: boolean;
+  @Input('isBG') isBG: boolean;
   @Input('videoId') videoId: string;
   @Input('width') width: number;
   @Input('height') height: number;
+
   player: YT.Player;
   quality: SuggestedVideoQuality;
   playerVars: YT.PlayerVars;
   isPlaying: boolean;
+  scaleRange = 200;
 
   constructor() {}
 
@@ -35,13 +38,18 @@ export class VideoPlayerComponent implements OnInit {
     };
   }
 
+  ngDoCheck() {
+    if ( this.player) {
+      this.scale(this.width, this.height);
+    }
+  }
+
   initPlayer(player) {
     this.player = player;
+    this.setQuality();
     this.player.mute();
-    this.player.setPlaybackQuality(this.quality);
     this.player.playVideo();
-
-    console.log(player.playerVars, this.playerVars);
+    this.scale(this.width, this.height);
   }
 
   onStateChange(event) {
@@ -69,4 +77,26 @@ export class VideoPlayerComponent implements OnInit {
     }
     console.log(event.data);
   }
+
+  scale(w: number, h: number) {
+    this.setQuality();
+
+    if (this.isBG) {
+      w += this.scaleRange;
+      h += this.scaleRange;
+    }
+
+    if (w / h > 16 / 9) {
+      this.player.setSize(w, w * 9 / 16);
+    } else {
+      this.player.setSize(h * 16 / 9, h);
+    }
+  }
+
+  setQuality() {
+    if (!this.player) {return; }
+    this.quality = this.isXS ? 'hd720' : 'hd1080';
+    this.player.setPlaybackQuality(this.quality);
+  }
+
 }
