@@ -1,8 +1,6 @@
 .carousel {
   position: absolute;
   left: 50vw;
-  transition: translate3d 0.25s ease-out;
-  -webkit-transition: translate3d 0.25s ease-out;
 }
 
 .carousel-horizon {

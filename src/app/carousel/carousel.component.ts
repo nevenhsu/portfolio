@@ -1,7 +1,11 @@
-import { ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import {
+  Component, ElementRef, EventEmitter, Input, OnInit, Output,
+  ViewChild
+} from '@angular/core';
 import { Sliding } from 'shared/Enums';
 import { CarouselItemComponent } from './carousel-item/carousel-item.component';
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import { animate, style, transition, trigger } from '@angular/animations';
+import { WorkItem } from 'shared/model/work-item';
 
 
 @Component({
@@ -26,11 +30,11 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 export class CarouselComponent implements OnInit {
 
   @ViewChild(CarouselItemComponent, {read: ElementRef}) carouselItem: ElementRef;
+  @Output('update') update = new EventEmitter<number>();
   @Input('isXS') isXS: boolean;
-
-  items: Array<any> = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
-  centerIndex: number;
-  slides: Array<any>;
+  @Input('items') items: Array<WorkItem>;
+  currentIndex: number;
+  slides: Array<WorkItem>;
   totalSlides = 5;
 
   sliding = Sliding;
@@ -42,9 +46,8 @@ export class CarouselComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    // FIXME: should await loading items
-    this.centerIndex = 0;
-    this.resetSlides(this.centerIndex);
+    this.currentIndex = 0;
+    this.resetSlides(this.currentIndex);
   }
 
   get itemWidth(): number {
@@ -90,7 +93,7 @@ export class CarouselComponent implements OnInit {
       return;
     }
 
-    this.centerIndex = center;
+    this.currentIndex = center;
     this.slides = [];
     let index = this.getPrevIndex(center + 1);
 
@@ -135,19 +138,20 @@ export class CarouselComponent implements OnInit {
         break;
       }
     }
+    this.update.emit(this.currentIndex);
   }
 
   slideToNext() {
-    const NEXT = this.getNextIndex(this.centerIndex);
+    const NEXT = this.getNextIndex(this.currentIndex);
     this.slides.push(this.items[NEXT]);
-    this.centerIndex = this.loopIndex(this.centerIndex + 1);
+    this.currentIndex = this.loopIndex(this.currentIndex + 1);
     this.slides.splice(0, 1);
   }
 
   slideToPrev() {
-    const PREV = this.getPrevIndex(this.centerIndex);
+    const PREV = this.getPrevIndex(this.currentIndex);
     this.slides.unshift(this.items[PREV]);
-    this.centerIndex = this.loopIndex(this.centerIndex - 1);
+    this.currentIndex = this.loopIndex(this.currentIndex - 1);
     this.slides.splice(-1, 1);
   }
 
@@ -208,5 +212,6 @@ export class CarouselComponent implements OnInit {
     this.isPanning = false;
     this.updateState = 0;
   }
+
 
 }

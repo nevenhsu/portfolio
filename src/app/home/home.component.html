@@ -10,11 +10,15 @@
     ></app-nav>
 
     <div class="text-center">
-        <h2>Title</h2>
-        <h3>Subtitle</h3>
+        <h2>{{ item.title }}</h2>
+        <h3>{{ item.subtitle }}</h3>
     </div>
 
-    <app-carousel [class.carousel-vertical]="!isXS" [isXS]="isXS"></app-carousel>
+    <app-carousel (update)="changeItem($event)"
+                  [items]="items"
+                  [isXS]="isXS"
+                  [class.carousel-vertical]="!isXS"
+    ></app-carousel>
 
     <app-video-player [videoId]="videoId"
                       [width]="windowWidth"
@@ -23,5 +27,11 @@
                       class="wrapping-background-video"
     ></app-video-player>
 
+    <div class="row wrapping-prograss zindex-tooltip">
+        <app-prograss-bar [currentIndex]="currentIndex"
+                          [totalItems]="items.length"
+                          class="col-2 offset-2"
+        ></app-prograss-bar>
+    </div>
 
 </div>

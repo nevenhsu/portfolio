@@ -18,6 +18,7 @@ import { CarouselComponent } from './carousel/carousel.component';
 import { CarouselItemComponent } from './carousel/carousel-item/carousel-item.component';
 import { VideoPlayerComponent } from 'shared/video-player/video-player.component';
 import { NavComponent } from './nav/nav.component';
+import { PrograssBarComponent } from './prograss-bar/prograss-bar.component';
 
 
 export class MyHammerConfig extends HammerGestureConfig {
@@ -44,7 +45,8 @@ export class MyHammerConfig extends HammerGestureConfig {
     WindowsSizeDirective,
     VideoPlayerComponent,
     NavComponent,
-    ImgurPipe
+    ImgurPipe,
+    PrograssBarComponent
   ],
   imports: [
     BrowserModule,

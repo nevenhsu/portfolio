@@ -86,12 +86,12 @@ export class VideoPlayerComponent implements OnInit, DoCheck {
     if (this.isBG) {
       w += this.scaleRange;
       h += this.scaleRange;
-    }
 
-    if (w / h > 16 / 9) {
-      this.player.setSize(w, w * 9 / 16);
-    } else {
-      this.player.setSize(h * 16 / 9, h);
+      if (w / h > 16 / 9) {
+        this.player.setSize(w, w * 9 / 16);
+      } else {
+        this.player.setSize(h * 16 / 9, h);
+      }
     }
   }
 

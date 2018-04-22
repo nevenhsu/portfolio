@@ -1,0 +1,15 @@
+.wrapping {
+  position: relative;
+  width: 100%;
+}
+
+.wrapping-bar {
+  height: 1px;
+  background-color: firebrick;
+}
+
+.bar {
+  height: 100%;
+  background-color: white;
+  transition: all 0.2s ease-out;
+}

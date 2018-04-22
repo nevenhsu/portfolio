@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { WorkItem } from 'shared/model/work-item';
 
 @Component({
   selector: 'app-carousel-item',
@@ -7,7 +8,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class CarouselItemComponent implements OnInit {
 
-  @Input('slideItem') slideItem: any;
+  @Input('slideItem') slideItem: WorkItem;
   @Output('clickItem') clickItem = new EventEmitter<any>();
   @Input('isXS') isXS: boolean;
 
