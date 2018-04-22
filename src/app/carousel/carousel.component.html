@@ -17,7 +17,8 @@
         <!--    slide x or y    -->
         <app-carousel-item *ngFor="let slide of slides; index as i; first as isFirst"
                            [slideItem]="slide"
-                           (onClick)="slideToItem($event)"
+                           (clickItem)="slideToItem($event)"
+                           [isXS]="isXS"
                            class="slide-item col-2 col-sm-6 offset-sm-3 my-sm-4"
                            [class.offset-1]="isFirst"
                            [class.slide-item-transition]="!isPanning"

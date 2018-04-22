@@ -1,6 +1,13 @@
+
+
 <div appWindowsSize
-     (onResize)="recheck($event)"
+     (resize)="recheck($event)"
      class="wrapping">
+
+    <app-nav [width]="windowWidth"
+             [height]="windowHeight"
+             [isXS]="isXS"
+    ></app-nav>
 
     <div class="text-center">
         <h2>Title</h2>

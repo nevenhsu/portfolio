@@ -8,15 +8,16 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class CarouselItemComponent implements OnInit {
 
   @Input('slideItem') slideItem: any;
-  @Output('onClick') onClick = new EventEmitter<any>();
+  @Output('clickItem') clickItem = new EventEmitter<any>();
+  @Input('isXS') isXS: boolean;
 
   constructor() { }
 
   ngOnInit() {
   }
 
-  clickItem() {
-    this.onClick.emit(this.slideItem);
+  onClick() {
+    this.clickItem.emit(this.slideItem);
   }
 
 }

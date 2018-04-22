@@ -1,4 +1,7 @@
-<li (click)="clickItem()" class="slide-item text-center">
+<li (click)="onClick()"
+    class="slide-item text-center"
+    [class.slide-item-xs]="isXS"
+>
     <div class="wrapping">
         <p>{{ slideItem }}</p>
     </div>

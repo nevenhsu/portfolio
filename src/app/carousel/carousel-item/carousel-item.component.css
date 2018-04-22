@@ -10,13 +10,11 @@
 .slide-item {
   position: relative;
   width: 100%;
-  padding-top: 88.889%;
+  padding-top: 56.25%;
   list-style-type: none;
   background-color: aquamarine;
 }
 
-@media (min-aspect-ratio: 8/5) {
-  .slide-item {
-    padding-top: 56.25%;
-  }
+.slide-item-xs {
+  padding-top: 88.889%;
 }

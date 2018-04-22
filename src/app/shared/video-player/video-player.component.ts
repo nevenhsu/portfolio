@@ -8,6 +8,8 @@ import SuggestedVideoQuality = YT.SuggestedVideoQuality;
 })
 export class VideoPlayerComponent implements OnInit, DoCheck {
 
+  // TODO: add cover
+
   @Input('isXS') isXS: boolean;
   @Input('isBG') isBG: boolean;
   @Input('videoId') videoId: string;

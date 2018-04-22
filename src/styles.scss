@@ -1,0 +1,27 @@
+.container-fluid {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.zindex-dropdown {
+  z-index: 1000;
+}
+.zindex-sticky {
+  z-index: 1020;
+}
+.zindex-fixed {
+  z-index: 1030;
+}
+.zindex-modal-backdrop {
+  z-index: 1040;
+}
+.zindex-modal {
+  z-index: 1050;
+}
+.zindex-popover {
+  z-index: 1060;
+}
+.zindex-tooltip {
+  z-index: 1070;
+}
+

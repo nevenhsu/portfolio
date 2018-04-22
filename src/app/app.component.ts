@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import * as data from 'shared/works.json';
+import { WorkItem } from 'shared/model/work-item';
+import { WorkDataService } from './shared/work-data.service';
 
 @Component({
   selector: 'app-root',
@@ -7,11 +8,13 @@ import * as data from 'shared/works.json';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'app';
+  title = 'Portfolio';
+  items: Array<WorkItem>;
+
+  constructor(private workDataService: WorkDataService) {}
 
   ngOnInit() {
-    const works = (<any>data).items;
-    console.log('json: ', works);
+    this.items = this.workDataService.items;
   }
 
 }
