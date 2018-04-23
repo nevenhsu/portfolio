@@ -6,6 +6,35 @@
   background-color: transparent;
 }
 
+.icon {
+  position: absolute;
+  width: 45px;
+  height: 45px;
+  left: 0;
+  top: 0;
+}
+
+.wrapping-category {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.category-horizon {
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0) rotateZ(-90deg);
+  -webkit-transform: translate3d(-50%, -50%, 0) rotateZ(-90deg);
+}
+
+.wrapping-title {
+  margin-top: 6rem;
+}
+
+.carousel-horizon {
+  margin-top: 2.5rem;
+}
+
 .carousel-vertical {
   overflow: hidden;
   position: absolute;
@@ -15,17 +44,24 @@
   height: 100vh;
 }
 
-.wrapping-background-video {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate3d(-50%, -50%, 0);
-  z-index: -100;
-}
-
-.wrapping-prograss {
+.wrapping-progress {
   position: absolute;
   bottom: 32px;
   width: 100%;
   margin: 0;
 }
+
+.progress-horizon {
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0) rotateZ(90deg);
+  -webkit-transform: translate3d(-50%, -50%, 0) rotateZ(90deg);
+  width: 100vh;
+  height: 100vw;
+  bottom: unset;
+}
+
+.progress-bar {
+  padding-top: 1rem;
+}
+

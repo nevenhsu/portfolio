@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-prograss-bar',
-  templateUrl: './prograss-bar.component.html',
-  styleUrls: ['./prograss-bar.component.scss']
+  selector: 'app-progress-bar',
+  templateUrl: './progress-bar.component.html',
+  styleUrls: ['./progress-bar.component.scss']
 })
-export class PrograssBarComponent implements OnInit {
+export class ProgressBarComponent implements OnInit {
 
   // TODO: Change Color
 

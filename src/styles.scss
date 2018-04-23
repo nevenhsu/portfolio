@@ -1,6 +1,23 @@
+
 .container-fluid {
   padding-left: 0;
   padding-right: 0;
+}
+
+.absolute-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  -webkit-transform: translate3d(-50%, -50%, 0);
+}
+
+.avoid-clicks {
+  pointer-events: none;
+}
+
+.zindex-background {
+  z-index: -1;
 }
 
 .zindex-dropdown {

@@ -1,0 +1,34 @@
+<div class="row wrapping">
+
+    <div (click)="onToggling()"
+         class="wrapping-category col-4 offset-4 col-sm-2 offset-sm-5 pt-3">
+
+        <p class="category-title">{{ currentTitle }}</p>
+
+        <div class="wrapping-bar row">
+            <div class="bar col-4"><div></div></div>
+            <div class="bar col-4"><div></div></div>
+            <div class="bar col-4"><div></div></div>
+        </div>
+    </div>
+
+    <ng-container *ngIf="toggle">
+        <div class="wrapping-category-item zindex-modal">
+
+            <div *ngFor="let category of categories"
+                 (click)="selectCategory(category)"
+                 class="category-item d-flex align-content-center justify-content-center"
+            >
+                <div class="item-title">
+                    <h2 class="text-center">{{ category.title }}</h2>
+                </div>
+
+                <small>{{ category.projects }} Projects</small>
+            </div>
+        </div>
+    </ng-container>
+</div>
+
+
+
+

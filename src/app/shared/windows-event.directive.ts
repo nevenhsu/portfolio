@@ -1,9 +1,9 @@
 import { Directive, EventEmitter, HostListener, Output } from '@angular/core';
 
 @Directive({
-  selector: '[appWindowsSize]'
+  selector: '[appWindowsEvent]'
 })
-export class WindowsSizeDirective {
+export class WindowsEventDirective {
 
   @Output('resize') resize = new EventEmitter<object>();
 

@@ -6,6 +6,7 @@ import { Sliding } from 'shared/Enums';
 import { CarouselItemComponent } from './carousel-item/carousel-item.component';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { WorkItem } from 'shared/model/work-item';
+import { WorkDataService } from 'shared/work-data.service';
 
 
 @Component({
@@ -32,8 +33,8 @@ export class CarouselComponent implements OnInit {
   @ViewChild(CarouselItemComponent, {read: ElementRef}) carouselItem: ElementRef;
   @Output('update') update = new EventEmitter<number>();
   @Input('isXS') isXS: boolean;
+  @Input('currentIndex') currentIndex: number;
   @Input('items') items: Array<WorkItem>;
-  currentIndex: number;
   slides: Array<WorkItem>;
   totalSlides = 5;
 
@@ -43,10 +44,16 @@ export class CarouselComponent implements OnInit {
   distanceY = 0;
   updateState = 0;
 
-  constructor() { }
+  static loopIndex(value: number, array: Array<any>): number {
+    while (value < 0) {
+      value += array.length;
+    }
+    return value % array.length;
+  }
+
+  constructor(private workDataService: WorkDataService) { }
 
   ngOnInit() {
-    this.currentIndex = 0;
     this.resetSlides(this.currentIndex);
   }
 
@@ -59,33 +66,23 @@ export class CarouselComponent implements OnInit {
   }
 
   get totalItems(): number {
-    if (!this.items) {
-      return 0;
-    }
-    return this.items.length;
+    return this.items ? this.items.length : 0;
   }
 
   get centerDistance(): number {
     return Math.floor(this.totalSlides / 2);
   }
 
-  loopIndex(value: number, array: Array<any> = this.items): number {
-    while (value < 0) {
-      value += array.length;
-    }
-    return value % array.length;
-  }
-
   getPrevIndex(index: number): number {
     // if total = 12; current = 0;  PREV = -3; result = 9;
     const PREV = index - this.centerDistance - 1;
-    return this.loopIndex(PREV);
+    return CarouselComponent.loopIndex(PREV, this.items);
   }
 
   getNextIndex(index: number): number {
     // if total = 12; current = 11;  NEXT = 14; result = 2;
     const NEXT = index + this.centerDistance + 1;
-    return this.loopIndex(NEXT);
+    return CarouselComponent.loopIndex(NEXT, this.items);
   }
 
   resetSlides(center: number) {
@@ -144,14 +141,14 @@ export class CarouselComponent implements OnInit {
   slideToNext() {
     const NEXT = this.getNextIndex(this.currentIndex);
     this.slides.push(this.items[NEXT]);
-    this.currentIndex = this.loopIndex(this.currentIndex + 1);
+    this.currentIndex = CarouselComponent.loopIndex(this.currentIndex + 1, this.items);
     this.slides.splice(0, 1);
   }
 
   slideToPrev() {
     const PREV = this.getPrevIndex(this.currentIndex);
     this.slides.unshift(this.items[PREV]);
-    this.currentIndex = this.loopIndex(this.currentIndex - 1);
+    this.currentIndex = CarouselComponent.loopIndex(this.currentIndex - 1, this.items);
     this.slides.splice(-1, 1);
   }
 

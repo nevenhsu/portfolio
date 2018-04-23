@@ -9,6 +9,7 @@ import SuggestedVideoQuality = YT.SuggestedVideoQuality;
 export class VideoPlayerComponent implements OnInit, DoCheck {
 
   // TODO: add cover
+  // TODO: detect id change
 
   @Input('isXS') isXS: boolean;
   @Input('isBG') isBG: boolean;
@@ -26,7 +27,7 @@ export class VideoPlayerComponent implements OnInit, DoCheck {
 
   ngOnInit() {
     this.quality = this.isXS ? 'hd720' : 'hd1080';
-    this.playerVars = {
+    this.playerVars = this.isBG ? {
       autohide: 1,
       autoplay: 1,
       controls: 0,
@@ -37,6 +38,9 @@ export class VideoPlayerComponent implements OnInit, DoCheck {
       playsinline: 1,
       rel: 0,
       showinfo: 0
+    } : {
+      autohide: 1,
+      modestbranding: 1,
     };
   }
 
@@ -49,9 +53,12 @@ export class VideoPlayerComponent implements OnInit, DoCheck {
   initPlayer(player) {
     this.player = player;
     this.setQuality();
-    this.player.mute();
-    this.player.playVideo();
     this.scale(this.width, this.height);
+
+    if (this.isBG) {
+      this.player.mute();
+      this.player.playVideo();
+    }
   }
 
   onStateChange(event) {
@@ -64,8 +71,11 @@ export class VideoPlayerComponent implements OnInit, DoCheck {
     switch (event.data) {
       case -1: case 0: {
         this.isPlaying = false;
-        this.player.mute();
-        this.player.playVideo();
+
+        if (this.isBG) {
+          this.player.mute();
+          this.player.playVideo();
+        }
         break;
       }
       case 1: {
@@ -77,7 +87,6 @@ export class VideoPlayerComponent implements OnInit, DoCheck {
         break;
       }
     }
-    console.log(event.data);
   }
 
   scale(w: number, h: number) {
@@ -86,13 +95,16 @@ export class VideoPlayerComponent implements OnInit, DoCheck {
     if (this.isBG) {
       w += this.scaleRange;
       h += this.scaleRange;
-
       if (w / h > 16 / 9) {
         this.player.setSize(w, w * 9 / 16);
+        return;
       } else {
         this.player.setSize(h * 16 / 9, h);
+        return;
       }
     }
+
+    this.player.setSize(w, w * 9 / 16);
   }
 
   setQuality() {

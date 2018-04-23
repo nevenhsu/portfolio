@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { WorkItem } from 'shared/model/work-item';
-import * as data from 'shared/works.json';
+import * as data from '../../assets/works.json';
 
 @Injectable()
 export class WorkDataService {
@@ -22,7 +22,5 @@ export class WorkDataService {
     }
     return CATEGORIES;
   }
-
-
 
 }

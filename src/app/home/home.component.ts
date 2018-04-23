@@ -9,6 +9,9 @@ import { WorkDataService } from 'shared/work-data.service';
 })
 export class HomeComponent implements OnInit {
 
+  // TODO: Detect scroll event on horizon view
+  // TODO: Detect pan event on horizon view
+
   items: Array<WorkItem>;
   item: WorkItem;
   currentIndex: number;
@@ -17,6 +20,8 @@ export class HomeComponent implements OnInit {
   windowWidth: number;
   windowHeight: number;
   videoId: string;
+  toggleCarousel: boolean;
+  toggleCategory: boolean;
 
   constructor(private workDataService: WorkDataService) { }
 
@@ -24,6 +29,8 @@ export class HomeComponent implements OnInit {
     this.windowWidth = window.innerWidth;
     this.windowHeight = window.innerHeight;
     this.isXS = this.windowWidth < this.xsSize;
+    this.toggleCarousel = this.isXS;
+    this.toggleCategory = false;
 
     this.items = this.workDataService.items;
     this.currentIndex = 0;
@@ -35,10 +42,29 @@ export class HomeComponent implements OnInit {
     this.windowWidth = event.width;
     this.windowHeight = event.height;
     this.isXS = this.windowWidth < this.xsSize;
+    this.toggleCarousel = this.isXS;
+  }
+
+  togglingCarousel() {
+    this.toggleCarousel = this.isXS ? true : !this.toggleCarousel;
   }
 
   changeItem(index) {
-    this.item = this.items[index];
-    this.currentIndex = index;
+    if (index) {
+      this.currentIndex = index;
+      this.item = this.items[index];
+      this.videoId = this.item.videoId;
+    }
   }
+
+  togglingCategory(event) {
+    this.toggleCategory = event.toggle;
+    this.changeItem(event.category.startIndex);
+    if (!this.isXS) {return; }
+    this.toggleCarousel = !this.toggleCategory;
+  }
+
+
+
+
 }

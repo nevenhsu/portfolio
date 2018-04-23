@@ -1,37 +1,54 @@
 
 
-<div appWindowsSize
+<div appWindowsEvent
      (resize)="recheck($event)"
      class="wrapping">
 
-    <app-nav [width]="windowWidth"
-             [height]="windowHeight"
-             [isXS]="isXS"
-    ></app-nav>
+    <ng-container *ngIf="!toggleCategory">
+        <button class="btn icon"></button>
+    </ng-container>
 
-    <div class="text-center">
-        <h2>{{ item.title }}</h2>
-        <h3>{{ item.subtitle }}</h3>
-    </div>
+    <app-category (toggling)="togglingCategory($event)"
+                  [currentTitle]="item.category"
+             [style.width]="isXS ? '100vw' : '100vh'"
+             [style.height]="isXS ? '100vh' : '100vw'"
+             [class.zindex-modal]="toggleCategory"
+             [class.category-horizon]="!isXS"
+             class="wrapping-category"
+    ></app-category>
 
-    <app-carousel (update)="changeItem($event)"
-                  [items]="items"
-                  [isXS]="isXS"
-                  [class.carousel-vertical]="!isXS"
-    ></app-carousel>
+    <ng-container *ngIf="!toggleCategory">
+        <div [class.absolute-center]="!isXS"
+             class="wrapping-title text-center mt-sm-0">
+            <h2>{{ item.title }}</h2>
+            <h3>{{ item.subtitle }}</h3>
+        </div>
 
-    <app-video-player [videoId]="videoId"
-                      [width]="windowWidth"
-                      [height]="windowHeight"
-                      [isBG]="true"
-                      class="wrapping-background-video"
-    ></app-video-player>
+        <app-video-player [videoId]="videoId"
+                          [width]="windowWidth"
+                          [height]="windowHeight"
+                          [isBG]="true"
+                          class="zindex-background absolute-center"
+        ></app-video-player>
 
-    <div class="row wrapping-prograss zindex-tooltip">
-        <app-prograss-bar [currentIndex]="currentIndex"
-                          [totalItems]="items.length"
-                          class="col-2 offset-2"
-        ></app-prograss-bar>
-    </div>
+        <div [class.progress-horizon]="!isXS"
+             class="wrapping-progress avoid-clicks zindex-tooltip row">
+            <app-progress-bar [currentIndex]="currentIndex"
+                              [totalItems]="items.length"
+                              class="progress-bar col-2 offset-2 offset-sm-5"
+            ></app-progress-bar>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="toggleCarousel && !toggleCategory ">
+        <app-carousel (update)="changeItem($event)"
+                      [items]="items"
+                      [currentIndex]="currentIndex"
+                      [isXS]="isXS"
+                      [class.carousel-vertical]="!isXS"
+                      [class.carousel-horizon]="isXS"
+                      class="d-block"
+        ></app-carousel>
+    </ng-container>
 
 </div>

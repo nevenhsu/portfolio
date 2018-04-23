@@ -8,7 +8,7 @@ import 'hammerjs';
 import 'hammer-timejs';
 
 import { WorkDataService } from 'shared/work-data.service';
-import { WindowsSizeDirective } from 'shared/windows-size.directive';
+import { WindowsEventDirective } from 'shared/windows-event.directive';
 import { ImgurPipe } from 'shared/imgur.pipe';
 
 import { AppComponent } from './app.component';
@@ -17,8 +17,8 @@ import { WorkComponent } from './work/work.component';
 import { CarouselComponent } from './carousel/carousel.component';
 import { CarouselItemComponent } from './carousel/carousel-item/carousel-item.component';
 import { VideoPlayerComponent } from 'shared/video-player/video-player.component';
-import { NavComponent } from './nav/nav.component';
-import { PrograssBarComponent } from './prograss-bar/prograss-bar.component';
+import { CategoryComponent } from './category/category.component';
+import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 
 
 export class MyHammerConfig extends HammerGestureConfig {
@@ -42,11 +42,11 @@ export class MyHammerConfig extends HammerGestureConfig {
     WorkComponent,
     CarouselComponent,
     CarouselItemComponent,
-    WindowsSizeDirective,
+    WindowsEventDirective,
     VideoPlayerComponent,
-    NavComponent,
+    CategoryComponent,
     ImgurPipe,
-    PrograssBarComponent
+    ProgressBarComponent
   ],
   imports: [
     BrowserModule,
