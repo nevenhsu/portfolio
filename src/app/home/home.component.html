@@ -27,13 +27,13 @@
             </ng-container>
 
             <ng-template #HorizonSubtitle>
-                <div class="icon mx-auto mt-2 mb-1">
+                <div (tap)="onTapPlay(item)"
+                     class="icon mx-auto mt-2 mb-1">
                     <img src="assets/images/icons/icon_play_45px.png" height="45" width="45"/>
                 </div>
                 <small>{{ item.duration }}</small>
             </ng-template>
         </div>
-
 
         <app-video-player *ngIf="isBgVideoChanged && checkShowCarousel()"
                           (changeState)="onBgStateChange($event)"
@@ -54,20 +54,27 @@
                               class="progress-bar col-2 offset-2 offset-sm-5"
             ></app-progress-bar>
         </div>
+
+        <ng-container *ngIf="!isXS && !isShowCarousel">
+            <div class="wrapping-preview row col-8">
+                <app-preview [item]="item"></app-preview>
+            </div>
+        </ng-container>
     </ng-container>
 
     <ng-container *ngIf="isShowCarousel && !isShowCategory ">
         <app-carousel (update)="setItem($event)"
                       (tapPlay)="onTapPlay($event)"
-                      (clickCarousel)="togglingCarousel()"
+                      (tapCarousel)="togglingCarousel($event)"
                       [items]="items"
                       [currentIndex]="currentIndex"
                       [isXS]="isXS"
-                      [class.carousel-vertical]="!isXS"
+                      [class.absolute-center]="!isXS"
                       [class.carousel-horizon]="isXS"
                       class="d-block zindex-popover"
         ></app-carousel>
     </ng-container>
+
 
     <div [style.background-image]="bgCoverImage"
          [class.bg-cover-zindex]="isBgVideoPlaying"
@@ -79,15 +86,10 @@
                                (tapClose)="onTapClose()"
                                [videoId]="playItem.videoId"
                                [width]="windowWidth"
+                               [height]="windowHeight"
                                [isXS]="isXS"
                                class="zindex-popover"
         ></app-fullscreen-player>
-    </ng-container>
-
-    <ng-container *ngIf="!isXS && !toggleCarousel">
-        <div class="wrapping-preview row col-8">
-            <app-preview [item]="item"></app-preview>
-        </div>
     </ng-container>
 
 </div>

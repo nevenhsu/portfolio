@@ -1,6 +1,6 @@
 <!--    center x    -->
 <div [ngClass]="{'carousel-horizon': isXS, 'carousel-vertical': !isXS}"
-     class="carousel no-gutters">
+     class="carousel text-center">
 
     <ul (swipeleft)="updateSlides(sliding.Right)"
         (swiperight)="updateSlides(sliding.Left)"
@@ -8,28 +8,30 @@
         (swipedown)="updateSlides(sliding.Up)"
         (panleft)="panSlides($event, sliding.Right)"
         (panright)="panSlides($event, sliding.Left)"
-        (panup)="panSlides($event, sliding.Down)"
-        (pandown)="panSlides($event, sliding.Up)"
         (panstart)="isPanning = true;"
         (panend)="resetState()"
-        class="row slide zindex-fixed">
+        class="slide p-0">
 
         <!--    slide x or y    -->
-        <app-carousel-item *ngFor="let slide of slides; index as i; first as isFirst"
+        <app-carousel-item [@slideState]="slideState"
+                           *ngFor="let slide of slides"
                            (clickItem)="slideToItem($event)"
                            (tapPlay)="onTapPlay($event)"
                            [item]="slide"
                            [isXS]="isXS"
-                           class="slide-item col-2 col-sm-6 offset-sm-3 my-sm-4 zindex-modal"
-                           [class.offset-1]="isFirst"
-                           [class.slide-item-transition]="!isPanning"
                            [style.left.px]="distanceX"
-                           [style.top.px]="distanceY">
+                           [style.top.px]="distanceY"
+                           class="slide-item px-3 my-sm-4 zindex-modal mx-sm-auto"
+                           [class.slide-item-transition]="!isPanning"
+                           [ngClass]="{'item-horizon': isXS, 'item-vertical': !isXS}">
         </app-carousel-item>
     </ul>
 
-    <div (tap)="onClickCarousel($event)"
-         class="carousel-back">
-
-    </div>
+    <div *ngIf="!isXS"
+         (tap)="onTap($event)"
+         (panup)="panSlides($event, sliding.Down)"
+         (pandown)="panSlides($event, sliding.Up)"
+         (panstart)="isPanning = true;"
+         (panend)="resetState()"
+         class="carousel-back absolute-center"></div>
 </div>

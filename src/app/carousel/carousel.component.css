@@ -1,23 +1,20 @@
 .carousel {
-  position: absolute;
-  left: 50vw;
+  position: relative;
 }
 
 .carousel-horizon {
-  width: 400vw;
+  left: 50%;
   transform: translate3d(-50%, 0, 0);
+  width: 400vw;
 }
 
 .carousel-vertical {
   width: 100vw;
-  top: 50vh;
-  transform: translate3d(-50%, -50%, 0);
 }
 
 .slide {
+  display: block;
   white-space: nowrap;
-  padding: 0;
-  margin: 0;
   list-style-type: none;
   background-color: transparent;
 }
@@ -26,15 +23,25 @@
   position: relative;
 }
 
+.item-horizon {
+  display: inline-block;
+  width: 66vw;
+}
+
+.item-vertical {
+  display: block;
+  width: 50vw;
+}
+
 .slide-item-transition {
   transition: all 0.25s ease-out;
   -webkit-transition: all 0.25s ease-out;
 }
 
 .carousel-back {
-  position: absolute;
-  left: 0;
-  top: 0;
   width: 100%;
   height: 100%;
 }
+
+
+

@@ -1,4 +1,5 @@
 import {
+  AfterViewChecked, ChangeDetectorRef,
   Component, ElementRef, EventEmitter, Input, OnInit, Output,
   ViewChild
 } from '@angular/core';
@@ -6,7 +7,6 @@ import { Sliding } from 'shared/enums';
 import { CarouselItemComponent } from './carousel-item/carousel-item.component';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { WorkItem } from 'shared/model/work-item';
-import { WorkDataService } from 'shared/work-data.service';
 
 
 @Component({
@@ -15,25 +15,34 @@ import { WorkDataService } from 'shared/work-data.service';
   styleUrls: ['./carousel.component.css'],
   animations: [
       trigger('slideState', [
-          transition('* => next', [
-              style({left: '-100%'}),
-              animate('0.2s ease-out')
+
+          transition('void => horizon', [
+              style({width: 0}),
+              animate('0.25s ease-out')
           ]),
 
-          transition('* => prev', [
-              style({left: '100%'}),
-              animate('0.2s ease-out')
+          transition('horizon => void', [
+            animate('0.25s ease-out', style({width: 0}))
+          ]),
+
+          transition('void => vertical', [
+            style({height: 0}),
+            animate('0.25s ease-out')
+          ]),
+
+          transition('vertical => void', [
+            animate('0.25s ease-out', style({height: 0}))
           ])
       ])
   ]
 })
 
-export class CarouselComponent implements OnInit {
+export class CarouselComponent implements OnInit, AfterViewChecked {
 
   @ViewChild(CarouselItemComponent, {read: ElementRef}) carouselItem: ElementRef;
   @Output('update') update = new EventEmitter<number>();
   @Output('tapPlay') tapPlay = new EventEmitter<WorkItem>();
-  @Output('clickCarousel') clickCarousel = new EventEmitter<WorkItem>();
+  @Output('tapCarousel') tapCarousel = new EventEmitter<WorkItem>();
   @Input('isXS') isXS: boolean;
   @Input('currentIndex') currentIndex: number;
   @Input('items') items: Array<WorkItem>;
@@ -45,6 +54,7 @@ export class CarouselComponent implements OnInit {
   distanceX = 0;
   distanceY = 0;
   updateState = 0;
+  slideState: string;
 
   static loopIndex(value: number, array: Array<any>): number {
     while (value < 0) {
@@ -53,10 +63,14 @@ export class CarouselComponent implements OnInit {
     return value % array.length;
   }
 
-  constructor(private workDataService: WorkDataService) { }
+  constructor(private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.resetSlides(this.currentIndex);
+  }
+
+  ngAfterViewChecked() {
+    // this.cd.detectChanges();
   }
 
   get itemWidth(): number {
@@ -106,26 +120,38 @@ export class CarouselComponent implements OnInit {
   updateSlides(sliding: Sliding) {
     switch (sliding) {
       case Sliding.Right : {
+        this.slideAnimate('horizon');
         this.slideToNext();
         break;
       }
 
       case Sliding.Left : {
+        this.slideAnimate('horizon');
         this.slideToPrev();
         break;
       }
 
       case Sliding.Down: {
+        this.slideAnimate('vertical');
         this.slideToNext();
         break;
       }
 
       case Sliding.Up: {
+        this.slideAnimate('vertical');
         this.slideToPrev();
         break;
       }
     }
     this.update.emit(this.currentIndex);
+  }
+
+  slideAnimate(orientation) {
+    if (this.isPanning) {
+      this.slideState = '';
+      return;
+    }
+    this.slideState = orientation;
   }
 
   slideToNext() {
@@ -172,7 +198,7 @@ export class CarouselComponent implements OnInit {
   }
 
   slideThreshold() {
-    const DENOMINATOR = 2;
+    const DENOMINATOR = 1.25;
     const X = this.distanceX % this.itemWidth;
     const Y = this.distanceY % this.itemHeight;
     if (Y > this.itemHeight / DENOMINATOR || X > this.itemWidth / DENOMINATOR) {
@@ -210,7 +236,9 @@ export class CarouselComponent implements OnInit {
     this.tapPlay.emit(event);
   }
 
-  onClickCarousel(event) {
-    this.clickCarousel.emit(event);
+  onTap(event) {
+    console.log('1: ', event);
+    this.tapCarousel.emit(event);
   }
+
 }

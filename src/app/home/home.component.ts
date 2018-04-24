@@ -66,9 +66,11 @@ export class HomeComponent implements OnInit, AfterViewChecked {
     this.isShowCarousel = this.isXS;
   }
 
-  togglingCarousel() {
-    console.log(1);
-    this.isShowCarousel = this.isXS ? true : !this.isShowCarousel;
+  togglingCarousel(event) {
+    console.log(event);
+    if (event.target.className.includes('carousel-back')) {
+      this.isShowCarousel = this.isXS ? true : !this.isShowCarousel;
+    }
   }
 
   checkShowCarousel(): boolean {
@@ -121,6 +123,11 @@ export class HomeComponent implements OnInit, AfterViewChecked {
 
   onBgStateChange(state) {
     switch (state) {
+      case 0: {
+        // this.setItem(this.currentIndex + 1);
+        break;
+      }
+
       case 1: {
         this.isBgVideoPlaying = true;
         break;
@@ -135,6 +142,8 @@ export class HomeComponent implements OnInit, AfterViewChecked {
   }
 
   onWheeling(data) {
+    if (this.isShowCarousel) {return; }
+
     if (data.deltaY > 80) {
       this.setItem(this.currentIndex + 1);
     }

@@ -11,6 +11,7 @@ export class FullscreenPlayerComponent implements OnInit {
   @Output('tapClose') tapClose = new EventEmitter<boolean>();
   @Input('videoId') videoId: string;
   @Input('width') width: string;
+  @Input('height') height: string;
   @Input('isXS') isXS: boolean;
 
   constructor() { }
