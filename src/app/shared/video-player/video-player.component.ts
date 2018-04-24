@@ -1,4 +1,4 @@
-import { Component, DoCheck, Input, OnInit } from '@angular/core';
+import { Component, DoCheck, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import SuggestedVideoQuality = YT.SuggestedVideoQuality;
 
 @Component({
@@ -8,26 +8,48 @@ import SuggestedVideoQuality = YT.SuggestedVideoQuality;
 })
 export class VideoPlayerComponent implements OnInit, DoCheck {
 
-  // TODO: add cover
-  // TODO: detect id change
-
+  @Output('changeState') changeState = new EventEmitter<YT.PlayerEvent>();
   @Input('isXS') isXS: boolean;
   @Input('isBG') isBG: boolean;
   @Input('videoId') videoId: string;
   @Input('width') width: number;
   @Input('height') height: number;
+  @Input('autoPlay') autoPlay = true;
+  @Input('start') start: number;
+  @Input('end') end: number;
 
   player: YT.Player;
   quality: SuggestedVideoQuality;
-  playerVars: YT.PlayerVars;
   isPlaying: boolean;
   scaleRange = 200;
+  playerVars: YT.PlayerVars;
+  bgVars: YT.PlayerVars;
+  defaultVars = {
+    autohide: 1,
+    modestbranding: 1,
+    rel: 0
+  };
 
   constructor() {}
 
   ngOnInit() {
+    if (!this.width) {
+      this.width = window.innerWidth;
+    }
     this.quality = this.isXS ? 'hd720' : 'hd1080';
-    this.playerVars = this.isBG ? {
+    this.checkVars();
+  }
+
+  ngDoCheck() {
+    this.checkVars();
+
+    if ( this.player) {
+      this.scale(this.width, this.height);
+    }
+  }
+
+  checkVars() {
+    this.bgVars = {
       autohide: 1,
       autoplay: 1,
       controls: 0,
@@ -37,17 +59,11 @@ export class VideoPlayerComponent implements OnInit, DoCheck {
       modestbranding: 1,
       playsinline: 1,
       rel: 0,
-      showinfo: 0
-    } : {
-      autohide: 1,
-      modestbranding: 1,
+      showinfo: 0,
+      start: this.start,
+      end: this.end
     };
-  }
-
-  ngDoCheck() {
-    if ( this.player) {
-      this.scale(this.width, this.height);
-    }
+    this.playerVars = this.isBG ? this.bgVars : this.defaultVars;
   }
 
   initPlayer(player) {
@@ -57,11 +73,15 @@ export class VideoPlayerComponent implements OnInit, DoCheck {
 
     if (this.isBG) {
       this.player.mute();
+    }
+
+    if (this.autoPlay) {
       this.player.playVideo();
     }
   }
 
   onStateChange(event) {
+    this.changeState.emit(event.data);
     //  UNSTARTED = -1,
     //  ENDED = 0,
     //  PLAYING = 1,
@@ -74,6 +94,7 @@ export class VideoPlayerComponent implements OnInit, DoCheck {
 
         if (this.isBG) {
           this.player.mute();
+          this.player.seekTo(this.start, true);
           this.player.playVideo();
         }
         break;

@@ -5,8 +5,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class ImgurPipe implements PipeTransform {
 
-  transform(value: string): string {
-    return `//i.imgur.com/${value}.jpg`;
+  transform(value: string, format: string = 'jpg'): string {
+    return `//i.imgur.com/${value}.${format}`;
   }
 
 }

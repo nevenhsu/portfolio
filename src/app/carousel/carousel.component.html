@@ -12,19 +12,24 @@
         (pandown)="panSlides($event, sliding.Up)"
         (panstart)="isPanning = true;"
         (panend)="resetState()"
-        class="row slide">
+        class="row slide zindex-fixed">
 
         <!--    slide x or y    -->
         <app-carousel-item *ngFor="let slide of slides; index as i; first as isFirst"
-                           [slideItem]="slide"
                            (clickItem)="slideToItem($event)"
+                           (tapPlay)="onTapPlay($event)"
+                           [item]="slide"
                            [isXS]="isXS"
-                           class="slide-item col-2 col-sm-6 offset-sm-3 my-sm-4"
+                           class="slide-item col-2 col-sm-6 offset-sm-3 my-sm-4 zindex-modal"
                            [class.offset-1]="isFirst"
                            [class.slide-item-transition]="!isPanning"
                            [style.left.px]="distanceX"
                            [style.top.px]="distanceY">
         </app-carousel-item>
-
     </ul>
+
+    <div (tap)="onClickCarousel($event)"
+         class="carousel-back">
+
+    </div>
 </div>

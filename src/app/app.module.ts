@@ -1,4 +1,4 @@
-import { BrowserModule, HAMMER_GESTURE_CONFIG, HammerGestureConfig } from '@angular/platform-browser';
+import { BrowserModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
@@ -19,20 +19,11 @@ import { CarouselItemComponent } from './carousel/carousel-item/carousel-item.co
 import { VideoPlayerComponent } from 'shared/video-player/video-player.component';
 import { CategoryComponent } from './category/category.component';
 import { ProgressBarComponent } from './progress-bar/progress-bar.component';
-
-
-export class MyHammerConfig extends HammerGestureConfig {
-  overrides = <any>{
-    'pan': {
-      direction: 30
-    },
-    'swipe': {
-      velocity: 0.4,
-      threshold: 20,
-      direction: 30
-    }
-  };
-}
+import { WorkBriefComponent } from './work-brief/work-brief.component';
+import { MyHammerConfig } from './my-hammer-config';
+import { FullscreenPlayerComponent } from './shared/fullscreen-player/fullscreen-player.component';
+import { PreviewComponent } from './preview/preview.component';
+import { BackgroundImagePipe } from './shared/background-image.pipe';
 
 
 @NgModule({
@@ -45,8 +36,11 @@ export class MyHammerConfig extends HammerGestureConfig {
     WindowsEventDirective,
     VideoPlayerComponent,
     CategoryComponent,
-    ImgurPipe,
-    ProgressBarComponent
+    ProgressBarComponent,
+    WorkBriefComponent,
+    FullscreenPlayerComponent,
+    PreviewComponent,
+    BackgroundImagePipe
   ],
   imports: [
     BrowserModule,
@@ -59,7 +53,9 @@ export class MyHammerConfig extends HammerGestureConfig {
       provide: HAMMER_GESTURE_CONFIG,
       useClass: MyHammerConfig
     },
-    WorkDataService],
+    WorkDataService,
+    ImgurPipe,
+    BackgroundImagePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

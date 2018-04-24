@@ -1,8 +1,17 @@
 <li (click)="onClick()"
-    class="slide-item text-center"
-    [class.slide-item-xs]="isXS"
+    class="wrapping background-cover text-center"
+    [class.item-xs]="isXS"
+    [style.background-image]="backgroundImg"
 >
-    <div class="wrapping">
-        <p>{{ slideItem.title }}</p>
+    <div class="item">
+        <ng-container *ngIf="item.videoId">
+            <div (tap)="onTapPlay()"
+                 class="icon absolute-center">
+                <img height="45" width="45" src="assets/images/icons/icon_play_45px.png">
+            </div>
+        </ng-container>
+
+        <p (tap)="onTapCase()"
+           class="text">See case</p>
     </div>
 </li>

@@ -12,6 +12,18 @@
   -webkit-transform: translate3d(-50%, -50%, 0);
 }
 
+.background-cover {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.icon {
+  display: block;
+  padding: 0;
+  background-color: transparent;
+}
+
 .avoid-clicks {
   pointer-events: none;
 }
@@ -23,21 +35,27 @@
 .zindex-dropdown {
   z-index: 1000;
 }
+
 .zindex-sticky {
   z-index: 1020;
 }
+
 .zindex-fixed {
   z-index: 1030;
 }
+
 .zindex-modal-backdrop {
   z-index: 1040;
 }
+
 .zindex-modal {
   z-index: 1050;
 }
+
 .zindex-popover {
   z-index: 1060;
 }
+
 .zindex-tooltip {
   z-index: 1070;
 }

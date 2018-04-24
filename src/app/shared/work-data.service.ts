@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { WorkItem } from 'shared/model/work-item';
-import * as data from '../../assets/works.json';
+import * as data from 'assets/works.json';
 
 @Injectable()
 export class WorkDataService {
@@ -21,6 +21,11 @@ export class WorkDataService {
       CATEGORIES.push(CATEGORY);
     }
     return CATEGORIES;
+  }
+
+  getItem(link: string): WorkItem {
+    const FILTERITEMS = this.items.filter((item) => item.link === link );
+    return FILTERITEMS[0];
   }
 
 }

@@ -1,0 +1,16 @@
+<div (click)="onTapClose()"
+     class="wrapping-player zindex-tooltip position-fixed"
+>
+  <div class="icon icon-close" (click)="onTapClose()">
+    <img src="assets/images/icons/icon_close_45px.png" height="45" width="45"/>
+  </div>
+
+  <app-video-player (changeState)="onStateChange($event)"
+                    [videoId]="videoId"
+                    [width]="width"
+                    [isXS]="isXS"
+                    [isBG]="false"
+                    class="absolute-center video-player"
+  ></app-video-player>
+</div>
+

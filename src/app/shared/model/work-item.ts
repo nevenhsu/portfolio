@@ -2,7 +2,8 @@
 export class WorkItem {
   title: string;
   subtitle: string;
-  brief: string;
+  link: string;
+  details: string;
   body: string;
   category: string;
   date: number;

@@ -6,12 +6,13 @@
   background-color: transparent;
 }
 
-.icon {
+.logo {
   position: absolute;
   width: 45px;
   height: 45px;
   left: 0;
   top: 0;
+  background-color: azure;
 }
 
 .wrapping-category {
@@ -28,7 +29,7 @@
 }
 
 .wrapping-title {
-  margin-top: 6rem;
+  margin-top: 10rem;
 }
 
 .carousel-horizon {
@@ -64,4 +65,44 @@
 .progress-bar {
   padding-top: 1rem;
 }
+
+.wrapping-player {
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+}
+
+.video-player {
+  width: 100%;
+}
+
+.icon-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.bg-cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.bg-cover-zindex {
+  z-index: -200 !important;
+}
+
+.wrapping-preview {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  height: 8rem;
+}
+
+
+
 

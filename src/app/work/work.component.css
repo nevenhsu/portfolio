@@ -1,0 +1,57 @@
+* {
+  color: white;
+}
+
+.icon-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.wrapping-player {
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: black;
+}
+
+.video-player {
+  width: 100%;
+}
+
+.icon-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.wrapping-cover {
+  min-height: 100vh;
+}
+
+.wrapping-play-button {
+  position: relative;
+  width: 100vw;
+  padding-top: 56.25%;
+  overflow: hidden;
+}
+
+.icon-down {
+  position: absolute;
+  left: 0;
+  top: 100vh;
+  width: 100%;
+  height: 24px;
+  transform: translate(0, -150%);
+  -webkit-transform: translate(0, -150%);
+}
+
+.background-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}

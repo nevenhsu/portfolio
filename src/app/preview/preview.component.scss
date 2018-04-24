@@ -1,0 +1,24 @@
+.wrapping {
+  width: 100%;
+  height: 100%;
+}
+
+.preview-left {
+  height: 100%;
+  background-color: aliceblue;
+}
+
+.preview-right {
+  position: relative;
+  height: 100%;
+}
+
+.preview-text {
+  display: -webkit-box;
+  height: 60%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+

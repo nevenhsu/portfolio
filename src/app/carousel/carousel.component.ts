@@ -2,7 +2,7 @@ import {
   Component, ElementRef, EventEmitter, Input, OnInit, Output,
   ViewChild
 } from '@angular/core';
-import { Sliding } from 'shared/Enums';
+import { Sliding } from 'shared/enums';
 import { CarouselItemComponent } from './carousel-item/carousel-item.component';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { WorkItem } from 'shared/model/work-item';
@@ -32,6 +32,8 @@ export class CarouselComponent implements OnInit {
 
   @ViewChild(CarouselItemComponent, {read: ElementRef}) carouselItem: ElementRef;
   @Output('update') update = new EventEmitter<number>();
+  @Output('tapPlay') tapPlay = new EventEmitter<WorkItem>();
+  @Output('clickCarousel') clickCarousel = new EventEmitter<WorkItem>();
   @Input('isXS') isXS: boolean;
   @Input('currentIndex') currentIndex: number;
   @Input('items') items: Array<WorkItem>;
@@ -104,33 +106,21 @@ export class CarouselComponent implements OnInit {
   updateSlides(sliding: Sliding) {
     switch (sliding) {
       case Sliding.Right : {
-        if (!this.isXS) {
-          break;
-        }
         this.slideToNext();
         break;
       }
 
       case Sliding.Left : {
-        if (!this.isXS) {
-          break;
-        }
         this.slideToPrev();
         break;
       }
 
       case Sliding.Down: {
-        if (this.isXS) {
-          break;
-        }
         this.slideToNext();
         break;
       }
 
       case Sliding.Up: {
-        if (this.isXS) {
-          break;
-        }
         this.slideToPrev();
         break;
       }
@@ -193,13 +183,19 @@ export class CarouselComponent implements OnInit {
   }
 
   updateNextSlide() {
+    if (this.isXS) {
+      this.updateSlides(this.sliding.Right);
+      return;
+    }
     this.updateSlides(this.sliding.Down);
-    this.updateSlides(this.sliding.Right);
   }
 
   updatePrevSlide() {
+    if (this.isXS) {
+      this.updateSlides(this.sliding.Left);
+      return;
+    }
     this.updateSlides(this.sliding.Up);
-    this.updateSlides(this.sliding.Left);
   }
 
   resetState() {
@@ -210,5 +206,11 @@ export class CarouselComponent implements OnInit {
     this.updateState = 0;
   }
 
+  onTapPlay(event) {
+    this.tapPlay.emit(event);
+  }
 
+  onClickCarousel(event) {
+    this.clickCarousel.emit(event);
+  }
 }

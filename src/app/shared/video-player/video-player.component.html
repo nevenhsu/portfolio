@@ -1,11 +1,9 @@
+<youtube-player [videoId]="videoId"
+                [width]="width"
+                [height]="height"
+                [playerVars]="playerVars"
+                (ready)="initPlayer($event)"
+                (change)="onStateChange($event)"
+                [class.background-video]="isBG"
+></youtube-player>
 
-<ng-container *ngIf="playerVars">
-    <youtube-player [videoId]="videoId"
-                    [width]="width"
-                    [height]="height"
-                    [playerVars]="playerVars"
-                    (ready)="initPlayer($event)"
-                    (change)="onStateChange($event)"
-                    [class.background-video]="isBG"
-    ></youtube-player>
-</ng-container>

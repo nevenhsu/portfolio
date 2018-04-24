@@ -1,3 +1,42 @@
-<p>
-  work works!
-</p>
+<div routerLink="/" class="icon icon-back zindex-fixed">
+    <img src="assets/images/icons/icon_back_45px.png" height="45" width="45"/>
+</div>
+
+<ng-container *ngIf="isShowPlayer">
+    <app-fullscreen-player (changeState)="onStateChange($event)"
+                           (tapClose)="onTapClose()"
+                           [videoId]="item.videoId"
+                           [width]="width"
+                           [isXS]="isXS"
+    ></app-fullscreen-player>
+</ng-container>
+
+
+<div appWindowsEvent
+     (resize)="onResize($event)"
+     class="wrapping-cover"
+>
+    <div class="wrapping-play-button">
+        <div class="icon absolute-center" (click)="playVideo()">
+            <img src="assets/images/icons/icon_play_white_45px.png" height="45" width="45"/>
+        </div>
+    </div>
+
+    <div class="row m-0">
+        <small class="col-12 mb-2">{{ item.duration }}</small>
+        <h2 class="col-12 mb-3">{{ item.title }}</h2>
+        <p class="col-12 mb-5">{{ item.body }}</p>
+        <small class="col-12">{{ item.details }}</small>
+    </div>
+
+
+    <div class="icon icon-down zindex-fixed">
+        <img class="absolute-center" src="assets/images/icons/icon_down_24px.png" height="24" width="24"/>
+    </div>
+
+    <div [style.background-image]="backgroundImage"
+         class="background-image background-cover zindex-background"
+    ></div>
+
+</div>
+

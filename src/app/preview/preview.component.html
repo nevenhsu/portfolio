@@ -1,0 +1,19 @@
+<div class="wrapping row m-0">
+  <div class="preview-left col-8">
+    <p class="col-12 mt-3 mb-1">{{ item.subtitle }}</p>
+    <div class="row m-0">
+      <div class="preview-text col-6">
+        <small>{{item.body}}</small>
+      </div>
+      <div class="preview-text col-6">
+        <small>{{item.details}}</small>
+      </div>
+    </div>
+  </div>
+  <div [style.background-image]="bgImage"
+       class="preview-right col-4 background-cover">
+    <p (tap)="onTapCase()"
+       class="absolute-center">See Case</p>
+  </div>
+</div>
+
