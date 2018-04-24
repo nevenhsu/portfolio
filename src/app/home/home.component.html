@@ -35,7 +35,7 @@
             </ng-template>
         </div>
 
-        <app-video-player *ngIf="isBgVideoChanged && checkShowCarousel()"
+        <app-video-player *ngIf="isBgVideoChanged && checkShowCarousel() && !isShowPlayer"
                           (changeState)="onBgStateChange($event)"
                           [videoId]="videoId"
                           [width]="windowWidth"

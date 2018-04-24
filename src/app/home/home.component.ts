@@ -124,7 +124,8 @@ export class HomeComponent implements OnInit, AfterViewChecked {
   onBgStateChange(state) {
     switch (state) {
       case 0: {
-        // this.setItem(this.currentIndex + 1);
+        if (this.isXS) {return; }
+        this.setItem(this.currentIndex + 1);
         break;
       }
 

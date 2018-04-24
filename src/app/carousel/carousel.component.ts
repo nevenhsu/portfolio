@@ -1,7 +1,4 @@
-import {
-  AfterViewChecked, ChangeDetectorRef,
-  Component, ElementRef, EventEmitter, Input, OnInit, Output,
-  ViewChild
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild
 } from '@angular/core';
 import { Sliding } from 'shared/enums';
 import { CarouselItemComponent } from './carousel-item/carousel-item.component';
@@ -37,7 +34,7 @@ import { WorkItem } from 'shared/model/work-item';
   ]
 })
 
-export class CarouselComponent implements OnInit, AfterViewChecked {
+export class CarouselComponent implements OnInit {
 
   @ViewChild(CarouselItemComponent, {read: ElementRef}) carouselItem: ElementRef;
   @Output('update') update = new EventEmitter<number>();
@@ -63,14 +60,10 @@ export class CarouselComponent implements OnInit, AfterViewChecked {
     return value % array.length;
   }
 
-  constructor(private cd: ChangeDetectorRef) { }
+  constructor() { }
 
   ngOnInit() {
     this.resetSlides(this.currentIndex);
-  }
-
-  ngAfterViewChecked() {
-    // this.cd.detectChanges();
   }
 
   get itemWidth(): number {

@@ -10,6 +10,8 @@
         (panright)="panSlides($event, sliding.Left)"
         (panstart)="isPanning = true;"
         (panend)="resetState()"
+        (panup)="panSlides($event, sliding.Down)"
+        (pandown)="panSlides($event, sliding.Up)"
         class="slide p-0">
 
         <!--    slide x or y    -->
