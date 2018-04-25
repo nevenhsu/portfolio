@@ -40,6 +40,8 @@ export class CarouselComponent implements OnInit {
   @Output('update') update = new EventEmitter<number>();
   @Output('tapPlay') tapPlay = new EventEmitter<WorkItem>();
   @Output('tapCarousel') tapCarousel = new EventEmitter<WorkItem>();
+  @Output('startPanning') startPanning =  new EventEmitter<boolean>();
+  @Output('stopPanning') stopPanning =  new EventEmitter<boolean>();
   @Input('isXS') isXS: boolean;
   @Input('currentIndex') currentIndex: number;
   @Input('items') items: Array<WorkItem>;
@@ -223,6 +225,7 @@ export class CarouselComponent implements OnInit {
     this.distanceY = 0;
     this.isPanning = false;
     this.updateState = 0;
+    this.stopPanning.emit(false);
   }
 
   onTapPlay(event) {
@@ -233,5 +236,11 @@ export class CarouselComponent implements OnInit {
     console.log('1: ', event);
     this.tapCarousel.emit(event);
   }
+
+  onPanning() {
+    this.isPanning = true;
+    this.startPanning.emit(true);
+  }
+
 
 }

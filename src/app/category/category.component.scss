@@ -1,3 +1,5 @@
+@import "../shared/my-variables";
+
 .wrapping {
   position: relative;
   width: 100%;
@@ -33,7 +35,7 @@
 
 .bar div {
   height: 1px;
-  background-color: aquamarine;
+  background-color: $color-white;
 }
 
 .wrapping-category-item {

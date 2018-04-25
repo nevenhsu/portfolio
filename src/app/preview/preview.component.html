@@ -1,19 +1,21 @@
 <div class="wrapping row m-0">
-  <div class="preview-left col-8">
-    <p class="col-12 mt-3 mb-1">{{ item.subtitle }}</p>
+  <div class="preview-left background-cover col-8">
+
+    <p class="font-body color-white font-weight-normal col-12 mt-3 mb-1">{{ item.subtitle }}</p>
     <div class="row m-0">
-      <div class="preview-text col-6">
-        <small>{{item.body}}</small>
+      <div class="preview-text color-white col-6">
+        <small class="font-body font-weight-light">{{item.body}}</small>
       </div>
-      <div class="preview-text col-6">
-        <small>{{item.details}}</small>
+      <div class="preview-text color-white col-6">
+        <small class="font-body font-weight-light">{{item.details}}</small>
       </div>
     </div>
+
   </div>
   <div [style.background-image]="bgImage"
        class="preview-right col-4 background-cover">
     <p (tap)="onTapCase()"
-       class="absolute-center">See Case</p>
+       class="link font-body color-white font-weight-normal absolute-center px-2 py-0">See Case</p>
   </div>
 </div>
 

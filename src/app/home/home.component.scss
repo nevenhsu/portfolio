@@ -1,3 +1,5 @@
+@import "../shared/my-variables";
+
 .wrapping {
   position: relative;
   overflow: hidden;
@@ -12,7 +14,7 @@
   height: 45px;
   left: 0;
   top: 0;
-  background-color: azure;
+  background-color: $color-dark;
 }
 
 .wrapping-category {
@@ -29,11 +31,15 @@
 }
 
 .wrapping-title {
-  margin-top: 10rem;
+  margin-top: 8rem;
 }
 
 .carousel-horizon {
-  margin-top: 2.5rem;
+  position: absolute;
+  bottom: 6em;
+  left: 50%;
+  transform: translate(-50%, 0);
+  -webkit-transform: translate(-50%, 0);
 }
 
 .wrapping-progress {
@@ -73,6 +79,15 @@
   position: absolute;
   top: 0;
   right: 0;
+}
+
+.background-gradient {
+  height: 100vh;
+  width: 100vw;
+  pointer-events: none;
+  opacity: 0.15;
+  background: #000000; /* fallback for old browsers */
+  background: linear-gradient(-45deg, #000000, #434343);
 }
 
 .bg-cover {

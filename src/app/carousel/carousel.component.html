@@ -8,7 +8,7 @@
         (swipedown)="updateSlides(sliding.Up)"
         (panleft)="panSlides($event, sliding.Right)"
         (panright)="panSlides($event, sliding.Left)"
-        (panstart)="isPanning = true;"
+        (panstart)="onPanning()"
         (panend)="resetState()"
         (panup)="panSlides($event, sliding.Down)"
         (pandown)="panSlides($event, sliding.Up)"
@@ -23,7 +23,7 @@
                            [isXS]="isXS"
                            [style.left.px]="distanceX"
                            [style.top.px]="distanceY"
-                           class="slide-item px-3 my-sm-4 zindex-modal mx-sm-auto"
+                           class="slide-item px-3 my-sm-5 zindex-modal mx-sm-auto"
                            [class.slide-item-transition]="!isPanning"
                            [ngClass]="{'item-horizon': isXS, 'item-vertical': !isXS}">
         </app-carousel-item>
@@ -33,7 +33,7 @@
          (tap)="onTap($event)"
          (panup)="panSlides($event, sliding.Down)"
          (pandown)="panSlides($event, sliding.Up)"
-         (panstart)="isPanning = true;"
+         (panstart)="onPanning()"
          (panend)="resetState()"
          class="carousel-back absolute-center"></div>
 </div>

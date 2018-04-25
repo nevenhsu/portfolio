@@ -11,10 +11,10 @@ export class BackgroundImagePipe implements PipeTransform {
   constructor(private sanitizer: DomSanitizer,
               private imgur: ImgurPipe) {}
 
-  transform(url: string, gradient?: number): SafeStyle {
+  transform(url: string, gradientIndex?: number, deg?: number): SafeStyle {
     const URL = this.imgur.transform(url);
-    if (gradient) {
-      return this.sanitizer.bypassSecurityTrustStyle(`${getGradient(gradient)}, url(${URL})`);
+    if (gradientIndex !== undefined) {
+      return this.sanitizer.bypassSecurityTrustStyle(`${getGradient(gradientIndex, deg)}, url(${URL})`);
     }
     return this.sanitizer.bypassSecurityTrustStyle(`url(${URL})`);
   }

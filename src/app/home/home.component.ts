@@ -9,7 +9,7 @@ import { VideoPlayerComponent } from 'shared/video-player/video-player.component
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit, AfterViewChecked {
 
@@ -35,6 +35,7 @@ export class HomeComponent implements OnInit, AfterViewChecked {
   isShowCarousel: boolean;
   isShowCategory: boolean;
   isShowPlayer: boolean;
+  isPanning: boolean;
 
   constructor(private workDataService: WorkDataService,
               private cd: ChangeDetectorRef,

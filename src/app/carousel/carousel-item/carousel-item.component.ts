@@ -4,10 +4,10 @@ import { SafeStyle } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { BackgroundImagePipe } from 'shared/background-image.pipe';
 
-@Component({
+@ Component({
   selector: 'app-carousel-item',
   templateUrl: './carousel-item.component.html',
-  styleUrls: ['./carousel-item.component.css'],
+  styleUrls: ['./carousel-item.component.scss'],
 })
 export class CarouselItemComponent implements OnInit {
 

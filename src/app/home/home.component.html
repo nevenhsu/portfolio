@@ -14,16 +14,17 @@
                   [style.height]="isXS ? '100vh' : '100vw'"
                   [class.zindex-modal]="isShowCategory"
                   [class.category-horizon]="!isXS"
-                  class="wrapping-category"
+                  class="wrapping-category zindex-fixed"
     ></app-category>
 
     <ng-container *ngIf="!isShowCategory">
         <div [class.absolute-center]="!isXS"
-             class="wrapping-title text-center mt-sm-0">
-            <h2>{{ item.title }}</h2>
+             [class.position-relative]="isXS"
+             class="wrapping-title text-center mt-sm-0 po zindex-fixed">
+            <h2 class="font-display color-white shadow-small">{{ item.title }}</h2>
 
             <ng-container *ngIf="isXS; else HorizonSubtitle">
-                <h3>{{ item.subtitle }}</h3>
+                <h3 class="font-body color-white shadow-small font-weight-normal">{{ item.subtitle }}</h3>
             </ng-container>
 
             <ng-template #HorizonSubtitle>
@@ -31,21 +32,22 @@
                      class="icon mx-auto mt-2 mb-1">
                     <img src="assets/images/icons/icon_play_45px.png" height="45" width="45"/>
                 </div>
-                <small>{{ item.duration }}</small>
+                <small class="font-body color-white font-weight-light">{{ item.duration }}</small>
             </ng-template>
         </div>
 
-        <app-video-player *ngIf="isBgVideoChanged && checkShowCarousel() && !isShowPlayer"
-                          (changeState)="onBgStateChange($event)"
-                          [videoId]="videoId"
-                          [width]="windowWidth"
-                          [height]="windowHeight"
-                          [start]="start"
-                          [end]="end"
-                          [isBG]="true"
-                          class="zindex-background absolute-center"
-        ></app-video-player>
-
+        <ng-container *ngIf="isBgVideoChanged && checkShowCarousel() && !isShowPlayer && !isPanning">
+            <div *ngIf="isXS" class="background-gradient absolute-center"></div>
+            <app-video-player (changeState)="onBgStateChange($event)"
+                              [videoId]="videoId"
+                              [width]="windowWidth"
+                              [height]="windowHeight"
+                              [start]="start"
+                              [end]="end"
+                              [isBG]="true"
+                              class="zindex-background absolute-center"
+            ></app-video-player>
+        </ng-container>
 
         <div [class.progress-horizon]="!isXS"
              class="wrapping-progress avoid-clicks zindex-fixed row">
@@ -56,7 +58,7 @@
         </div>
 
         <ng-container *ngIf="!isXS && !isShowCarousel">
-            <div class="wrapping-preview row col-8">
+            <div class="wrapping-preview row col-8 zindex-fixed">
                 <app-preview [item]="item"></app-preview>
             </div>
         </ng-container>
@@ -66,6 +68,8 @@
         <app-carousel (update)="setItem($event)"
                       (tapPlay)="onTapPlay($event)"
                       (tapCarousel)="togglingCarousel($event)"
+                      (startPanning)="isPanning = true"
+                      (stopPanning)="isPanning = false"
                       [items]="items"
                       [currentIndex]="currentIndex"
                       [isXS]="isXS"
