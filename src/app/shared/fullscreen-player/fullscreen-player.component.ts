@@ -10,13 +10,15 @@ export class FullscreenPlayerComponent implements OnInit {
   @Output('changeState') changeState = new EventEmitter<YT.PlayerEvent>();
   @Output('tapClose') tapClose = new EventEmitter<boolean>();
   @Input('videoId') videoId: string;
-  @Input('width') width: string;
-  @Input('height') height: string;
   @Input('isXS') isXS: boolean;
+  width: number;
+  height: number;
 
   constructor() { }
 
   ngOnInit() {
+    this.width = window.innerWidth;
+    this.height = window.innerHeight;
   }
 
   onStateChange(event) {
@@ -25,6 +27,11 @@ export class FullscreenPlayerComponent implements OnInit {
 
   onTapClose() {
     this.tapClose.emit(false);
+  }
+
+  setSize(event) {
+    this.width = event.width;
+    this.height = event.height;
   }
 
 }

@@ -1,5 +1,16 @@
-* {
-  color: white;
+@import "../shared/my-variables";
+
+h2, p, small {
+  color: $color-white;
+}
+
+.wrapping {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.wrapping-sm {
+  min-height: 100vh;
 }
 
 .icon-back {
@@ -27,11 +38,7 @@
   right: 0;
 }
 
-.wrapping-cover {
-  min-height: 100vh;
-}
-
-.wrapping-play-button {
+.wrapping-play-video {
   position: relative;
   width: 100vw;
   padding-top: 56.25%;

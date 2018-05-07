@@ -21,7 +21,7 @@ export class VideoPlayerComponent implements OnInit, DoCheck {
   player: YT.Player;
   quality: SuggestedVideoQuality;
   isPlaying: boolean;
-  scaleRange = 200;
+  scaleRange = 250;
   playerVars: YT.PlayerVars;
   bgVars: YT.PlayerVars;
   defaultVars = {
@@ -113,6 +113,7 @@ export class VideoPlayerComponent implements OnInit, DoCheck {
   scale(w: number, h: number) {
     this.setQuality();
 
+    // background player
     if (this.isBG) {
       w += this.scaleRange;
       h += this.scaleRange;
@@ -125,7 +126,12 @@ export class VideoPlayerComponent implements OnInit, DoCheck {
       }
     }
 
-    this.player.setSize(w, w * 9 / 16);
+    // normal player
+    if (w / h > 16 / 9) {
+      this.player.setSize(h * 16 / 9, h);
+    } else {
+      this.player.setSize(w, w * 9 / 16);
+    }
   }
 
   setQuality() {

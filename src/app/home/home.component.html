@@ -4,9 +4,10 @@
      (panstart)="isShowCarousel = true"
      class="wrapping">
 
-    <ng-container *ngIf="!isShowCategory">
-        <div class="logo zindex-fixed"></div>
-    </ng-container>
+
+    <div *ngIf="!isShowCategory"
+         class="logo zindex-fixed"></div>
+
 
     <app-category (toggling)="togglingCategory($event)"
                   [currentTitle]="item.category"
@@ -64,20 +65,21 @@
         </ng-container>
     </ng-container>
 
-    <ng-container *ngIf="isShowCarousel && !isShowCategory ">
-        <app-carousel (update)="setItem($event)"
-                      (tapPlay)="onTapPlay($event)"
-                      (tapCarousel)="togglingCarousel($event)"
-                      (startPanning)="isPanning = true"
-                      (stopPanning)="isPanning = false"
-                      [items]="items"
-                      [currentIndex]="currentIndex"
-                      [isXS]="isXS"
-                      [class.absolute-center]="!isXS"
-                      [class.carousel-horizon]="isXS"
-                      class="d-block zindex-popover"
-        ></app-carousel>
-    </ng-container>
+
+    <app-carousel *ngIf="isShowCarousel && !isShowCategory"
+                  (update)="setItem($event)"
+                  (tapPlay)="onTapPlay($event)"
+                  (tapCarousel)="togglingCarousel($event)"
+                  (startPanning)="isPanning = true"
+                  (stopPanning)="isPanning = false"
+                  [items]="items"
+                  [currentIndex]="currentIndex"
+                  [isXS]="isXS"
+                  [class.absolute-center]="!isXS"
+                  [class.carousel-horizon]="isXS"
+                  class="d-block zindex-popover"
+    ></app-carousel>
+
 
 
     <div [style.background-image]="bgCoverImage"
@@ -85,15 +87,13 @@
          class="bg-cover background-cover zindex-background"
     ></div>
 
-    <ng-container *ngIf="isShowPlayer">
-        <app-fullscreen-player (changeState)="onStateChange($event)"
-                               (tapClose)="onTapClose()"
-                               [videoId]="playItem.videoId"
-                               [width]="windowWidth"
-                               [height]="windowHeight"
-                               [isXS]="isXS"
-                               class="zindex-popover"
-        ></app-fullscreen-player>
-    </ng-container>
+    <app-fullscreen-player *ngIf="isShowPlayer"
+                           (changeState)="onStateChange($event)"
+                           (tapClose)="onTapClose()"
+                           [videoId]="playItem.videoId"
+                           [isXS]="isXS"
+                           class="zindex-popover"
+    ></app-fullscreen-player>
+
 
 </div>

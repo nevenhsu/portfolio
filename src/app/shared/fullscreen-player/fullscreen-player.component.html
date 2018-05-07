@@ -1,7 +1,9 @@
-<div (click)="onTapClose()"
+<div appWindowsEvent
+     (resize)="setSize($event)"
+     (click)="onTapClose()"
      class="wrapping-player zindex-tooltip position-fixed"
 >
-  <div class="icon icon-close" (click)="onTapClose()">
+  <div class="icon icon-close zindex-fixed" (click)="onTapClose()">
     <img src="assets/images/icons/icon_close_45px.png" height="45" width="45"/>
   </div>
 
@@ -11,7 +13,7 @@
                     [height]="height"
                     [isXS]="isXS"
                     [isBG]="false"
-                    class="absolute-center video-player"
+                    class="video-player"
   ></app-video-player>
 </div>
 

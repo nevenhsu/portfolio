@@ -4,24 +4,23 @@
     [style.background-image]="backgroundImg"
 >
     <div class="item text-center">
-        <ng-template *ngIf="isXS; else horizon;">
-            <ng-container *ngIf="item.videoId">
-                <div (tap)="onTapPlay()"
-                     class="icon absolute-center">
-                    <img height="45" width="45" src="assets/images/icons/icon_play_45px.png">
-                </div>
-            </ng-container>
+        <ng-container *ngIf="isXS; else horizon;">
+
+            <div *ngIf="item.videoId" (tap)="onTapPlay()"
+                 class="icon absolute-center">
+                <img height="45" width="45" src="assets/images/icons/icon_play_45px.png">
+            </div>
 
             <small (tap)="onTapCase()"
-                   class="text font-body color-white font-weight-light">See case</small>
-        </ng-template>
+                   class="text font-body color-white font-weight-light">See case
+            </small>
+        </ng-container>
 
         <ng-template #horizon>
             <h3 class="title font-display color-white shadow-small font-weight-bold">{{item.title}}</h3>
 
             <p (tap)="onTapCase()"
-                   class="text font-body color-white font-weight-light m-0">See case</p>
+               class="text font-body color-white font-weight-light m-0">See case</p>
         </ng-template>
-
     </div>
 </li>

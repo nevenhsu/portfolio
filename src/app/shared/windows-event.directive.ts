@@ -6,7 +6,7 @@ import { Directive, EventEmitter, HostListener, Output } from '@angular/core';
 export class WindowsEventDirective {
 
   @Output('resize') resize = new EventEmitter<object>();
-  @Output('resize') wheeling = new EventEmitter<object>();
+  @Output('wheel') wheel = new EventEmitter<object>();
 
   constructor() { }
 
@@ -15,7 +15,7 @@ export class WindowsEventDirective {
   }
 
   @HostListener('mousewheel', ['$event']) onMousewheel(event) {
-    this.wheeling.emit(event.wheelDelta);
+    this.wheel.emit(event.wheelDelta);
   }
 
 

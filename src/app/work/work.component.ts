@@ -8,7 +8,7 @@ import { BackgroundImagePipe } from 'shared/background-image.pipe';
 @Component({
   selector: 'app-work',
   templateUrl: './work.component.html',
-  styleUrls: ['./work.component.css']
+  styleUrls: ['./work.component.scss']
 })
 export class WorkComponent implements OnInit {
 
@@ -18,6 +18,7 @@ export class WorkComponent implements OnInit {
 
   item: WorkItem;
   backgroundImage: SafeStyle;
+  coverImage: SafeStyle;
   isXS: boolean;
   isShowPlayer: boolean;
   width: number;
@@ -41,9 +42,20 @@ export class WorkComponent implements OnInit {
     });
   }
 
+  getCategoryIndex(): number {
+    const CATEGORIES = this.workDataService.categories;
+    for (let i = 0; i < CATEGORIES.length; i++) {
+      const TITLE = CATEGORIES[i].title;
+      if (this.item.category === TITLE) {
+        return i;
+      }
+    }
+  }
+
   getBackgroundImage() {
-    const RANDOM = Math.floor(Math.random() * 3);
-    this.backgroundImage = this.backgroundImagePipe.transform(this.item.cover, RANDOM);
+    const INDEX = this.getCategoryIndex();
+    this.backgroundImage = this.backgroundImagePipe.transform(this.item.cover, INDEX);
+    this.coverImage = this.backgroundImagePipe.transform(this.item.cover);
   }
 
   onResize(event) {
