@@ -4,6 +4,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { YoutubePlayerModule } from 'ngx-youtube-player';
+import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import 'hammerjs';
 import 'hammer-timejs';
 
@@ -21,9 +22,10 @@ import { CategoryComponent } from './category/category.component';
 import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 import { WorkBriefComponent } from './work-brief/work-brief.component';
 import { MyHammerConfig } from './my-hammer-config';
-import { FullscreenPlayerComponent } from './shared/fullscreen-player/fullscreen-player.component';
+import { FullscreenPlayerComponent } from 'shared/fullscreen-player/fullscreen-player.component';
 import { PreviewComponent } from './preview/preview.component';
-import { BackgroundImagePipe } from './shared/background-image.pipe';
+import { BackgroundImagePipe } from 'shared/background-image.pipe';
+import { AnimateInModule } from 'ngx-animate-in';
 
 
 @NgModule({
@@ -40,22 +42,26 @@ import { BackgroundImagePipe } from './shared/background-image.pipe';
     WorkBriefComponent,
     FullscreenPlayerComponent,
     PreviewComponent,
-    BackgroundImagePipe
+    BackgroundImagePipe,
+    ImgurPipe
   ],
   imports: [
     BrowserModule,
     NgbModule.forRoot(),
     AppRoutingModule,
     BrowserAnimationsModule,
-    YoutubePlayerModule
+    YoutubePlayerModule,
+    ScrollToModule.forRoot(),
+    AnimateInModule
   ],
   providers: [{
-      provide: HAMMER_GESTURE_CONFIG,
-      useClass: MyHammerConfig
-    },
+    provide: HAMMER_GESTURE_CONFIG,
+    useClass: MyHammerConfig
+  },
     WorkDataService,
-    ImgurPipe,
-    BackgroundImagePipe],
+    BackgroundImagePipe,
+    ImgurPipe],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

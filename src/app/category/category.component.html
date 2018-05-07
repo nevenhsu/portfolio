@@ -3,7 +3,8 @@
     <div (click)="onToggling()"
          class="wrapping-category col-4 offset-4 col-sm-2 offset-sm-5 pt-3">
 
-        <p class="category-title font-body color-white font-weight-light">{{ currentTitle }}</p>
+        <p [@smallSlideAnimation]="currentTitle"
+           class="category-title font-body color-white font-weight-light">{{ currentTitle }}</p>
 
         <div class="wrapping-bar row">
             <div class="bar col-4"><div></div></div>
@@ -12,25 +13,23 @@
         </div>
     </div>
 
-    <ng-container *ngIf="toggle">
-        <div class="wrapping-category-item zindex-modal">
+    <div *ngIf="toggle"
+         @menuAnimation
+         class="wrapping-category-item zindex-modal">
 
-            <ng-container *ngFor="let category of categories; index as i">
-                <div (click)="selectCategory(category)"
-                     [style.background-image]="backgroundImages[i]"
-                     class="category-item background-cover d-flex align-content-center justify-content-center">
+        <div *ngFor="let category of categories; index as i"
+             (click)="selectCategory(category)"
+             [style.background-image]="backgroundImages[i]"
+             class="category-item background-cover d-flex align-content-center justify-content-center">
 
-                    <div class="item-title">
-                        <h2 class="font-display color-white text-center mb-2">{{ category.title }}</h2>
-                    </div>
-                    <small class="font-body color-white font-weight-light">{{ category.projects }} Projects</small>
-
-                </div>
-            </ng-container>
-
+            <div class="item-title">
+                <h2 class="font-display color-white text-center mb-2">{{ category.title }}</h2>
+            </div>
+            <small class="font-body color-white font-weight-light">{{ category.projects }} Projects</small>
 
         </div>
-    </ng-container>
+    </div>
+
 </div>
 
 

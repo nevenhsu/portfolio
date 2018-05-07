@@ -4,10 +4,9 @@
      (panstart)="isShowCarousel = true"
      class="wrapping">
 
-
-    <div *ngIf="!isShowCategory"
-         class="logo zindex-fixed"></div>
-
+    <div *ngIf="!isShowCategory && !isShowPlayer"
+         @fade
+         class="logo zindex-modal"></div>
 
     <app-category (toggling)="togglingCategory($event)"
                   [currentTitle]="item.category"
@@ -18,22 +17,27 @@
                   class="wrapping-category zindex-fixed"
     ></app-category>
 
-    <ng-container *ngIf="!isShowCategory">
-        <div [class.absolute-center]="!isXS"
+    <ng-container *ngIf="!isShowCategory && !isShowPlayer">
+        <div [@slideAnimation]="item.title"
+             [class.absolute-center]="!isXS"
              [class.position-relative]="isXS"
              class="wrapping-title text-center mt-sm-0 po zindex-fixed">
-            <h2 class="font-display color-white shadow-small">{{ item.title }}</h2>
 
-            <ng-container *ngIf="isXS; else HorizonSubtitle">
-                <h3 class="font-body color-white shadow-small font-weight-normal">{{ item.subtitle }}</h3>
-            </ng-container>
+            <div class="d-block position-relative overflow-hidden">
+                <h2 class="font-display color-white shadow-small slide-animation position-relative">{{ item.title }}</h2>
+            </div>
+
+            <div *ngIf="isXS; else HorizonSubtitle" class="d-block position-relative overflow-hidden">
+                <h3 class="font-body color-white shadow-small slide-animation position-relative font-weight-normal">{{ item.subtitle
+                    }}</h3>
+            </div>
 
             <ng-template #HorizonSubtitle>
                 <div (tap)="onTapPlay(item)"
-                     class="icon mx-auto mt-2 mb-1">
+                     class="icon play-btn mx-auto mt-2 mb-1">
                     <img src="assets/images/icons/icon_play_45px.png" height="45" width="45"/>
                 </div>
-                <small class="font-body color-white font-weight-light">{{ item.duration }}</small>
+                <small class="font-body color-white slide-animation font-weight-light">{{ item.duration }}</small>
             </ng-template>
         </div>
 
@@ -50,7 +54,8 @@
             ></app-video-player>
         </ng-container>
 
-        <div [class.progress-horizon]="!isXS"
+        <div @fade
+             [class.progress-horizon]="!isXS"
              class="wrapping-progress avoid-clicks zindex-fixed row">
             <app-progress-bar [currentIndex]="currentIndex"
                               [totalItems]="items.length"
@@ -59,7 +64,8 @@
         </div>
 
         <ng-container *ngIf="!isXS && !isShowCarousel">
-            <div class="wrapping-preview row col-8 zindex-fixed">
+            <div @fade
+                 class="wrapping-preview row col-8 zindex-fixed">
                 <app-preview [item]="item"></app-preview>
             </div>
         </ng-container>
@@ -81,18 +87,19 @@
     ></app-carousel>
 
 
-
-    <div [style.background-image]="bgCoverImage"
+    <div [@fade]="item.cover"
+         [style.background-image]="bgCoverImage"
          [class.bg-cover-zindex]="isBgVideoPlaying"
          class="bg-cover background-cover zindex-background"
     ></div>
 
-    <app-fullscreen-player *ngIf="isShowPlayer"
+    <app-fullscreen-player @fade
+                           *ngIf="isShowPlayer"
                            (changeState)="onStateChange($event)"
                            (tapClose)="onTapClose()"
                            [videoId]="playItem.videoId"
                            [isXS]="isXS"
-                           class="zindex-popover"
+                           class="zindex-tooltip position-fixed"
     ></app-fullscreen-player>
 
 

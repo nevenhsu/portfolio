@@ -1,12 +1,32 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { WorkDataService } from 'shared/work-data.service';
 import { SafeStyle } from '@angular/platform-browser';
 import { BackgroundImagePipe } from 'shared/background-image.pipe';
+import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
+import { SMALLSLIDE } from 'shared/animation/animations';
 
 @Component({
   selector: 'app-category',
   templateUrl: './category.component.html',
-  styleUrls: ['./category.component.scss']
+  styleUrls: ['./category.component.scss'],
+  animations: [
+      trigger('menuAnimation', [
+          transition(':enter', [
+              query('.category-item', [
+                  style({opacity: 0, top: '-16px'}),
+                  stagger(100, [
+                      animate('250ms ease-out')
+                  ])
+              ])
+          ]),
+        transition(':leave', [
+          query('.category-item', [
+              animate('200ms ease-out', style({opacity: 0}))
+          ])
+        ])
+      ]),
+      SMALLSLIDE
+  ]
 })
 export class CategoryComponent implements OnInit {
 
@@ -20,7 +40,8 @@ export class CategoryComponent implements OnInit {
   backgroundImages: Array<SafeStyle>;
 
   constructor(private workDataService: WorkDataService,
-              private backgroundImagePipe: BackgroundImagePipe) { }
+              private backgroundImagePipe: BackgroundImagePipe,
+              private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.toggle = false;
@@ -38,6 +59,7 @@ export class CategoryComponent implements OnInit {
   onToggling(category?: Category) {
     this.toggle = !this.toggle;
     this.toggling.emit({toggle: this.toggle, category: category});
+    this.cd.detectChanges();
   }
 
   selectCategory(category: Category) {

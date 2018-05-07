@@ -1,9 +1,13 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FADE } from 'shared/animation/animations';
 
 @Component({
   selector: 'app-fullscreen-player',
   templateUrl: './fullscreen-player.component.html',
-  styleUrls: ['./fullscreen-player.component.scss']
+  styleUrls: ['./fullscreen-player.component.scss'],
+  animations: [
+    FADE
+  ]
 })
 export class FullscreenPlayerComponent implements OnInit {
 

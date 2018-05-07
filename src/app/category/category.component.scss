@@ -18,8 +18,21 @@
 .category-title {
   position: absolute;
   left: 50%;
-  transform: translate3d(-50%, 0, 0);
-  -webkit-transform: translate3d(-50%, 0, 0);
+  cursor: pointer;
+  transform: translate3d(-50%, 0, 0) scale(1);
+  -webkit-transform: translate3d(-50%, 0, 0) scale(1);
+  -webkit-transition: all 0.25s ease-out;
+  -moz-transition: all 0.25s ease-out;
+  -ms-transition: all 0.25s ease-out;
+  -o-transition: all 0.25s ease-out;
+  transition: all 0.25s ease-out;
+  color: $color-white;
+}
+
+.category-title:hover {
+  transform: translate3d(-50%, 0, 0) scale(1.08);
+  -webkit-transform: translate3d(-50%, 0, 0) scale(1.08);
+  color: $color-primary !important;
 }
 
 .wrapping-bar {
@@ -52,6 +65,7 @@
   flex-wrap: wrap;
   width: 100%;
   height: 33.34%;
+  cursor: pointer;
 }
 
 .item-title {

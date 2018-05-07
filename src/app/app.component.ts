@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { WorkItem } from 'shared/model/work-item';
-import { WorkDataService } from './shared/work-data.service';
+import { WorkDataService } from 'shared/work-data.service';
 
 @Component({
   selector: 'app-root',

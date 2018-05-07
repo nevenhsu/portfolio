@@ -3,11 +3,16 @@ import { WorkItem } from 'shared/model/work-item';
 import { Router } from '@angular/router';
 import { SafeStyle } from '@angular/platform-browser';
 import { BackgroundImagePipe } from 'shared/background-image.pipe';
+import { FADE, SLIDE } from 'shared/animation/animations';
 
 @Component({
   selector: 'app-preview',
   templateUrl: './preview.component.html',
-  styleUrls: ['./preview.component.scss']
+  styleUrls: ['./preview.component.scss'],
+  animations: [
+      FADE,
+      SLIDE
+  ]
 })
 export class PreviewComponent implements OnInit, OnChanges {
 

@@ -8,7 +8,7 @@ export class WorkItem {
   category: string;
   date: number;
   thumbnail: string;
-  imagesUrl: Array<string>;
+  imagesUrl: Array<Image>;
   cover: string;
   videoId: string;
   duration: string;

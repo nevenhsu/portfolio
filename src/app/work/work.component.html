@@ -1,31 +1,37 @@
-<div routerLink="/" class="icon icon-back zindex-fixed">
+<div routerLink="/" class="icon icon-back zindex-tooltip">
     <img src="assets/images/icons/icon_back_45px.png" height="45" width="45"/>
 </div>
 
-<app-fullscreen-player *ngIf="isShowPlayer"
+<app-fullscreen-player @fade
+                       *ngIf="isShowPlayer"
                        (changeState)="onStateChange($event)"
                        (tapClose)="onTapClose()"
                        [videoId]="item.videoId"
                        [isXS]="isXS"
+                       class="position-fixed zindex-tooltip"
 ></app-fullscreen-player>
 
 <div appWindowsEvent
      (resize)="onResize($event)"
      [class.wrapping-sm]="isXS"
-     class="wrapping"
+     class="wrapping mb-sm-5"
 >
     <ng-container *ngIf="isXS">
-        <div [style.background-image]="coverImage"
-             class="wrapping-play-video background-cover"
+        <div @fade
+             [style.background-image]="coverImage"
+             class="wrapping-play-video background-cover zindex-fixed"
         >
             <div *ngIf="item.videoId"
                  (click)="playVideo()"
-                 class="icon absolute-center" >
+                 class="icon absolute-center zindex-fixed" >
                 <img src="assets/images/icons/icon_play_white_45px.png" height="45" width="45"/>
             </div>
         </div>
 
-        <div class="icon icon-down zindex-fixed">
+        <div [ngx-scroll-to]="'image-0'"
+             [ngx-scroll-to-easing]="'easeOutCubic'"
+             [ngx-scroll-to-duration]="1000"
+             class="icon icon-down zindex-fixed">
             <img class="absolute-center" src="assets/images/icons/icon_down_24px.png" height="24" width="24"/>
         </div>
 
@@ -35,25 +41,41 @@
     </ng-container>
 
 
-    <div class="row m-0 mt-sm-5">
-        <small *ngIf="isXS" class="col-12 my-2">{{ item.duration }}</small>
-        <div class="col-12 col-sm-5 offset-sm-1">
-            <h2 [class.color-primary]="!isXS"
-                class="mb-3 mb-sm-1">{{ item.title }}</h2>
-            <small *ngIf="!isXS"
-                   class="color-secondary d-block font-weight-light mb-4">{{ item.details }}</small>
-            <small *ngIf="!isXS && item.videoId"
-                   (click)="playVideo()"
-                   class="color-primary d-block font-weight-bold">Watch video ></small>
+    <div [@slideAnimation]="item.title"
+         class="row m-0 mt-sm-5">
+        <div *ngIf="isXS" class=" col-12 my-2 overflow-hidden position-relative">
+            <small class="font-weight-light d-block slide-animation position-relative">{{ item.duration }}</small>
         </div>
 
-        <p [class.color-secondary]="!isXS"
-           class="col-12 col-sm-5 mb-5">{{ item.body }}</p>
-        <small *ngIf="isXS" class="d-block font-weight-light col-12">{{ item.details }}</small>
+        <div class="col-12 col-sm-4 offset-sm-1">
+            <div class="mb-3 mb-sm-1 overflow-hidden position-relative">
+                <h2 [class.color-primary]="!isXS"
+                    class="font-display font-weight-bold slide-animation position-relative">{{ item.title }}</h2>
+            </div>
+
+            <div *ngIf="!isXS" class="mb-4 overflow-hidden position-relative">
+                <small class="font-body font-weight-light color-secondary d-block slide-animation position-relative">{{ item.details }}</small>
+            </div>
+
+            <div *ngIf="!isXS && item.videoId"
+                 (click)="playVideo()" class="overflow-hidden position-relative">
+                <small class="play-btn font-body font-weight-bold color-primary d-block slide-animation position-relative">Watch video ></small>
+            </div>
+
+        </div>
+
+        <div class="col-12 col-sm-5 offset-sm-1 mb-5 overflow-hidden position-relative">
+            <p [class.color-secondary]="!isXS"
+               class="font-body font-weight-normal slide-animation position-relative">{{ item.body }}</p>
+        </div>
+
     </div>
-
-
-
-
 </div>
 
+<div *ngFor="let image of item.imagesUrl; first as isFirst; index as i;">
+    <img animateIn [animateInAnimation]="fadeAnimation" [attr.id]="'image-'+i" class="w-100 d-block" src="{{ image.url | imgur:image.type }}" />
+</div>
+
+<div *ngIf="isXS" class="row pt-4 pb-5 m-0">
+    <small animateIn [animateInAnimation]="fadeAnimation" class="color-secondary col-12 d-block font-weight-light">{{ item.details }}</small>
+</div>

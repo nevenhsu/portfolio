@@ -14,6 +14,7 @@
 .preview-right {
   position: relative;
   height: 100%;
+  background-color: $color-primary;
 }
 
 .preview-text {
@@ -25,13 +26,25 @@
   -webkit-line-clamp: 3;
 }
 
+.preview-cover {
+  display: block;
+  width: 101%;
+  height: 101%;
+  transition: all 0.5s ease-out;
+}
+
 .link {
   opacity: 0.85;
   transition: all 0.2s ease-out;
   background-color: $color-primary;
   border-radius: 2px;
+  cursor: pointer;
 }
 
 .link:hover {
   opacity: 1;
+}
+
+.link:hover ~ .preview-cover {
+  opacity: 0.5;
 }

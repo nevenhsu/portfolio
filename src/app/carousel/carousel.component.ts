@@ -2,7 +2,7 @@ import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild
 } from '@angular/core';
 import { Sliding } from 'shared/enums';
 import { CarouselItemComponent } from './carousel-item/carousel-item.component';
-import { animate, style, transition, trigger } from '@angular/animations';
+import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
 import { WorkItem } from 'shared/model/work-item';
 
 
@@ -11,6 +11,21 @@ import { WorkItem } from 'shared/model/work-item';
   templateUrl: './carousel.component.html',
   styleUrls: ['./carousel.component.css'],
   animations: [
+      trigger('listAnimation', [
+          transition(':enter', [
+              query('.slide-item', [
+                  style({opacity: 0}),
+                  stagger(100, [
+                      animate('150ms ease-out')
+                  ])
+              ])
+          ]),
+          transition(':leave', [
+              animate('250ms ease-out',
+                  style({opacity: 0}))
+          ])
+      ]),
+
       trigger('slideState', [
 
           transition('void => horizon', [

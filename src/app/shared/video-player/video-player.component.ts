@@ -1,10 +1,21 @@
 import { Component, DoCheck, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import SuggestedVideoQuality = YT.SuggestedVideoQuality;
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-video-player',
   templateUrl: './video-player.component.html',
-  styleUrls: ['./video-player.component.scss']
+  styleUrls: ['./video-player.component.scss'],
+  animations: [
+      trigger('load', [
+          state('loading', style({opacity: 0})),
+          state('ready', style({opacity: 1})),
+
+          transition( 'loading => ready', [
+              animate('250ms ease-out')
+          ])
+      ])
+  ]
 })
 export class VideoPlayerComponent implements OnInit, DoCheck {
 
@@ -18,6 +29,7 @@ export class VideoPlayerComponent implements OnInit, DoCheck {
   @Input('start') start: number;
   @Input('end') end: number;
 
+  state: string;
   player: YT.Player;
   quality: SuggestedVideoQuality;
   isPlaying: boolean;
@@ -33,6 +45,7 @@ export class VideoPlayerComponent implements OnInit, DoCheck {
   constructor() {}
 
   ngOnInit() {
+    this.state = 'loading';
     if (!this.width) {
       this.width = window.innerWidth;
     }
@@ -100,6 +113,7 @@ export class VideoPlayerComponent implements OnInit, DoCheck {
         break;
       }
       case 1: {
+        this.state = 'ready';
         this.isPlaying = true;
         break;
       }

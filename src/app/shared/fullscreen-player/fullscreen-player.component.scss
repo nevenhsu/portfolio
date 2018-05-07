@@ -14,4 +14,39 @@
   position: absolute;
   top: 0;
   right: 0;
+
+  animation: fade-out 0.35s 1;
+  -webkit-animation: fade-out 0.35s 1;
+  animation-fill-mode: forwards;
+  -webkit-animation-fill-mode: forwards;
+  animation-delay: 5s;
+  -webkit-animation-delay: 5s;
+  animation-timing-function: ease-out;
+  -webkit-animation-timing-function: ease-out;
+}
+
+.icon-close-2 {
+  position: absolute;
+  top: 0;
+  right: 0;
+  opacity: 0;
+  -webkit-transition: all 0.35s ease-out;
+  -moz-transition: all 0.35s ease-out;
+  -ms-transition: all 0.35s ease-out;
+  -o-transition: all 0.35s ease-out;
+  transition: all 0.35s ease-out;
+}
+
+.icon-close-2:hover {
+  opacity: 1;
+}
+
+@keyframes fade-out {
+  0%   {opacity: 1}
+  100% {opacity: 0}
+}
+
+@-webkit-keyframes fade-out {
+  0%   {opacity: 1}
+  100% {opacity: 0}
 }

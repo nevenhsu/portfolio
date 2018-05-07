@@ -5,7 +5,7 @@
   overflow: hidden;
   width: 100vw;
   height: 100vh;
-  background-color: transparent;
+  background-color: $color-blue-dark;
 }
 
 .logo {
@@ -15,6 +15,7 @@
   left: 0;
   top: 0;
   background-color: $color-dark;
+  cursor: pointer;
 }
 
 .wrapping-category {
@@ -32,6 +33,18 @@
 
 .wrapping-title {
   margin-top: 8rem;
+}
+
+.play-btn {
+  transform: scale(1);
+  -webkit-transition: all 0.25s ease-out;
+  -moz-transition: all 0.25s ease-out;
+  -ms-transition: all 0.25s ease-out;
+  -o-transition: all 0.25s ease-out;
+  transition: all 0.25s ease-out;
+}
+.play-btn:hover {
+  transform: scale(1.125);
 }
 
 .carousel-horizon {
@@ -106,7 +119,7 @@
   position: absolute;
   right: 0;
   bottom: 0;
-  height: 8rem;
+  height: 10rem;
 }
 
 

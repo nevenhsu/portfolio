@@ -4,11 +4,17 @@ import { WorkDataService } from 'shared/work-data.service';
 import { WorkItem } from 'shared/model/work-item';
 import { SafeStyle } from '@angular/platform-browser';
 import { BackgroundImagePipe } from 'shared/background-image.pipe';
+import { animate, style } from '@angular/animations';
+import { FADE, SLIDE } from 'shared/animation/animations';
 
 @Component({
   selector: 'app-work',
   templateUrl: './work.component.html',
-  styleUrls: ['./work.component.scss']
+  styleUrls: ['./work.component.scss'],
+  animations: [
+      SLIDE,
+      FADE
+  ]
 })
 export class WorkComponent implements OnInit {
 
@@ -22,6 +28,10 @@ export class WorkComponent implements OnInit {
   isXS: boolean;
   isShowPlayer: boolean;
   width: number;
+  fadeAnimation = [
+    style({opacity: 0, transform: 'translateY(16px)'}),
+    animate('500ms ease-in-out', style({opacity: 1, transform: 'translateY(0px)'}))
+  ];
 
   constructor(private route: ActivatedRoute,
               private workDataService: WorkDataService,

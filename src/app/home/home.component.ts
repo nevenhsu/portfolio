@@ -5,17 +5,20 @@ import { CarouselComponent } from '../carousel/carousel.component';
 import { SafeStyle } from '@angular/platform-browser';
 import { BackgroundImagePipe } from 'shared/background-image.pipe';
 import { VideoPlayerComponent } from 'shared/video-player/video-player.component';
+import { FADE, SLIDE } from 'shared/animation/animations';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+  animations: [
+    SLIDE,
+    FADE
+  ]
 })
 export class HomeComponent implements OnInit, AfterViewChecked {
 
   // TODO: Show video player animation
-  // TODO: Show menu animation
-  // TODO: Show carousel animation
 
   @ViewChild('bgVideoPlayerComponent') bgVideoPlayerComponent: VideoPlayerComponent;
   items: Array<WorkItem>;
@@ -89,6 +92,8 @@ export class HomeComponent implements OnInit, AfterViewChecked {
     this.start = this.item.startSeconds;
     this.end = this.item.endSeconds;
     this.bgCoverImage = this.backgrondImage.transform(this.item.cover);
+
+    this.cd.detectChanges();
   }
 
   togglingCategory(event) {

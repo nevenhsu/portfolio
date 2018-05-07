@@ -1,21 +1,25 @@
 <div class="wrapping row m-0">
-  <div class="preview-left background-cover col-8">
-
-    <p class="font-body color-white font-weight-normal col-12 mt-3 mb-1">{{ item.subtitle }}</p>
-    <div class="row m-0">
-      <div class="preview-text color-white col-6">
-        <small class="font-body font-weight-light">{{item.body}}</small>
+  <div [@slideAnimation]="item.subtitle" class="preview-left background-cover col-8">
+      <div class="col-12 mt-3 mb-1 overflow-hidden position-relative">
+          <p class="slide-animation font-body color-white font-weight-normal position-relative">{{ item.subtitle }}</p>
       </div>
-      <div class="preview-text color-white col-6">
-        <small class="font-body font-weight-light">{{item.details}}</small>
+
+    <div class="row m-0">
+      <div class="preview-text color-white col-6 overflow-hidden position-relative">
+        <small class="slide-animation font-body font-weight-light position-relative">{{item.body}}</small>
+      </div>
+      <div class="preview-text color-white col-6 overflow-hidden position-relative">
+        <small class="slide-animation font-body font-weight-light position-relative">{{item.details}}</small>
       </div>
     </div>
-
   </div>
-  <div [style.background-image]="bgImage"
-       class="preview-right col-4 background-cover">
+
+  <div class="preview-right col-4 background-cover overflow-hidden">
     <p (tap)="onTapCase()"
-       class="link font-body color-white font-weight-normal absolute-center px-2 py-0">See Case</p>
+       class="link font-body color-white font-weight-normal absolute-center zindex-fixed px-2 py-0">See Case</p>
+    <div [@fade]="item.cover"
+         [style.background-image]="bgImage"
+         class="preview-cover absolute-center background-cover zindex-background"></div>
   </div>
 </div>
 

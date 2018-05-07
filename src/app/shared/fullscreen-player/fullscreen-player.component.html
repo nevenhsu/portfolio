@@ -1,11 +1,15 @@
-<div appWindowsEvent
+<div @fade
+     appWindowsEvent
      (resize)="setSize($event)"
      (click)="onTapClose()"
      class="wrapping-player zindex-tooltip position-fixed"
 >
-  <div class="icon icon-close zindex-fixed" (click)="onTapClose()">
+  <div class="icon icon-close zindex-sticky">
     <img src="assets/images/icons/icon_close_45px.png" height="45" width="45"/>
   </div>
+    <div class="icon icon-close-2 zindex-fixed" (click)="onTapClose()">
+        <img src="assets/images/icons/icon_close_45px.png" height="45" width="45"/>
+    </div>
 
   <app-video-player (changeState)="onStateChange($event)"
                     [videoId]="videoId"

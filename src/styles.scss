@@ -1,14 +1,16 @@
 
 @import url('https://fonts.googleapis.com/css?family=Lato:300,400,700|Ubuntu:700');
+@import url('//fonts.googleapis.com/earlyaccess/notosanstc.css');
+// @import url('https://use.typekit.net/iiz2rpf.css');
 @import "app/shared/my-variables";
 
 .font-display {
-  font-family: 'Ubuntu', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: 'Ubuntu', 'Noto Sans TC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-weight: bold;
 }
 
 .font-body {
-  font-family: 'Lato', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: 'Lato', 'Noto Sans TC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
 
@@ -30,6 +32,14 @@
 
 .shadow-small {
   text-shadow: 0 1px 2px rgba(60, 58, 58, 0.5);
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+html, body {
+  background-color: $color-white;
 }
 
 
@@ -87,6 +97,7 @@ small {
   display: block;
   padding: 0;
   background-color: transparent;
+  cursor: pointer;
 }
 
 .avoid-clicks {
@@ -94,7 +105,7 @@ small {
 }
 
 .zindex-background {
-  z-index: -1;
+  z-index: 0;
 }
 
 .zindex-dropdown {
