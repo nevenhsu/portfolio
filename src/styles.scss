@@ -7,10 +7,12 @@
 .font-display {
   font-family: 'Ubuntu', 'Noto Sans TC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-weight: bold;
+  margin-bottom: 0;
 }
 
 .font-body {
   font-family: 'Lato', 'Noto Sans TC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  margin-bottom: 0;
 }
 
 
@@ -140,7 +142,7 @@ small {
 @media all and (min-width: 576px) {
 
   h2 {
-    font-size: 3.6875em;
+    font-size: 4.915em;
     line-height: 1.333;
   }
 
@@ -156,7 +158,7 @@ small {
   }
 
   small {
-    font-size: 0.6em;
+    font-size: 0.68em;
     line-height: 1.667;
   }
 }

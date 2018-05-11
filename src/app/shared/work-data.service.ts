@@ -7,6 +7,8 @@ export class WorkDataService {
 
   constructor() { }
 
+  currentIndex = 0;
+
   get items(): Array<WorkItem> {
     const ITEMS = [];
     for (const ITEM of (<any>data).items) {

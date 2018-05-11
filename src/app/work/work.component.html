@@ -28,13 +28,6 @@
             </div>
         </div>
 
-        <div [ngx-scroll-to]="'image-0'"
-             [ngx-scroll-to-easing]="'easeOutCubic'"
-             [ngx-scroll-to-duration]="1000"
-             class="icon icon-down zindex-fixed">
-            <img class="absolute-center" src="assets/images/icons/icon_down_24px.png" height="24" width="24"/>
-        </div>
-
         <div [style.background-image]="backgroundImage"
              class="background-image background-cover zindex-background"
         ></div>
@@ -47,13 +40,13 @@
             <small class="font-weight-light d-block slide-animation position-relative">{{ item.duration }}</small>
         </div>
 
-        <div class="col-12 col-sm-4 offset-sm-1">
-            <div class="mb-3 mb-sm-1 overflow-hidden position-relative">
-                <h2 [class.color-primary]="!isXS"
-                    class="font-display font-weight-bold slide-animation position-relative">{{ item.title }}</h2>
-            </div>
+        <div class="col-12 col-sm-11 offset-sm-1 mb-2 mb-sm-5 overflow-hidden position-relative">
+            <h2 [class.color-primary]="!isXS"
+                class="font-display font-weight-bold slide-animation position-relative">{{ item.title }}</h2>
+        </div>
 
-            <div *ngIf="!isXS" class="mb-4 overflow-hidden position-relative">
+        <div class="col-12 col-sm-4 offset-sm-1">
+            <div *ngIf="!isXS" class="mb-2 overflow-hidden position-relative">
                 <small class="font-body font-weight-light color-secondary d-block slide-animation position-relative">{{ item.details }}</small>
             </div>
 
@@ -64,18 +57,32 @@
 
         </div>
 
-        <div class="col-12 col-sm-5 offset-sm-1 mb-5 overflow-hidden position-relative">
+        <div class="col-12 col-sm-4 offset-sm-1 mb-1 overflow-hidden position-relative">
             <p [class.color-secondary]="!isXS"
-               class="font-body font-weight-normal slide-animation position-relative">{{ item.body }}</p>
+               class="font-body font-weight-light slide-animation position-relative">{{ item.body }}</p>
+        </div>
+
+        <div *ngIf="isXS" class="col-12 pb-5 m-0 overflow-hidden position-relative">
+            <small class="d-block font-weight-light slide-animation position-relative">{{ item.details }}</small>
+        </div>
+
+        <div *ngIf="isXS"
+             [ngx-scroll-to]="'image-0'"
+             [ngx-scroll-to-easing]="'easeOutCubic'"
+             [ngx-scroll-to-duration]="1000"
+             class="icon icon-down zindex-fixed">
+            <img class="absolute-center" src="assets/images/icons/icon_down_24px.png" height="24" width="24"/>
         </div>
 
     </div>
 </div>
 
+<div @shrink
+     (@shrink.done)="hideBlock()"
+     *ngIf="isBlocking"
+     class="img-block d-block"></div>
+
 <div *ngFor="let image of item.imagesUrl; first as isFirst; index as i;">
     <img animateIn [animateInAnimation]="fadeAnimation" [attr.id]="'image-'+i" class="w-100 d-block" src="{{ image.url | imgur:image.type }}" />
 </div>
 
-<div *ngIf="isXS" class="row pt-4 pb-5 m-0">
-    <small animateIn [animateInAnimation]="fadeAnimation" class="color-secondary col-12 d-block font-weight-light">{{ item.details }}</small>
-</div>

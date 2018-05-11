@@ -40,3 +40,12 @@ export const SMALLSLIDE = trigger('smallSlideAnimation', [
     animate('350ms ease-out', style({opacity: 1, transform: 'translate(-50%, 0px)'}))
   ])
 ]);
+
+
+export const SHRINK = trigger('shrink', [
+    transition('void => *', [
+        style({height: '1200px'}),
+        animate('0.8s ease-out', style({height: 0}))
+    ])
+]);
+

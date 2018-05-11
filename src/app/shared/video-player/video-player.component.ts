@@ -1,4 +1,8 @@
-import { Component, DoCheck, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import {
+  AfterViewChecked, ChangeDetectorRef,
+  Component, EventEmitter, Input, OnChanges, OnInit, Output,
+  SimpleChanges
+} from '@angular/core';
 import SuggestedVideoQuality = YT.SuggestedVideoQuality;
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
@@ -6,18 +10,8 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
   selector: 'app-video-player',
   templateUrl: './video-player.component.html',
   styleUrls: ['./video-player.component.scss'],
-  animations: [
-      trigger('load', [
-          state('loading', style({opacity: 0})),
-          state('ready', style({opacity: 1})),
-
-          transition( 'loading => ready', [
-              animate('250ms ease-out')
-          ])
-      ])
-  ]
 })
-export class VideoPlayerComponent implements OnInit, DoCheck {
+export class VideoPlayerComponent implements OnInit, OnChanges, AfterViewChecked {
 
   @Output('changeState') changeState = new EventEmitter<YT.PlayerEvent>();
   @Input('isXS') isXS: boolean;
@@ -29,10 +23,9 @@ export class VideoPlayerComponent implements OnInit, DoCheck {
   @Input('start') start: number;
   @Input('end') end: number;
 
-  state: string;
+  isShowing: boolean;
   player: YT.Player;
   quality: SuggestedVideoQuality;
-  isPlaying: boolean;
   scaleRange = 250;
   playerVars: YT.PlayerVars;
   bgVars: YT.PlayerVars;
@@ -42,10 +35,9 @@ export class VideoPlayerComponent implements OnInit, DoCheck {
     rel: 0
   };
 
-  constructor() {}
+  constructor(private cd: ChangeDetectorRef) {}
 
   ngOnInit() {
-    this.state = 'loading';
     if (!this.width) {
       this.width = window.innerWidth;
     }
@@ -53,12 +45,18 @@ export class VideoPlayerComponent implements OnInit, DoCheck {
     this.checkVars();
   }
 
-  ngDoCheck() {
-    this.checkVars();
-
-    if ( this.player) {
-      this.scale(this.width, this.height);
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['videoId']) {
+      this.resetPlayer(changes['videoId'].currentValue);
     }
+    if (changes.width || changes.height) {
+      this.scalePlayer(this.width, this.height);
+    }
+  }
+
+  ngAfterViewChecked() {
+    this.isShowing = true;
+    this.cd.detectChanges();
   }
 
   checkVars() {
@@ -81,12 +79,8 @@ export class VideoPlayerComponent implements OnInit, DoCheck {
 
   initPlayer(player) {
     this.player = player;
-    this.setQuality();
-    this.scale(this.width, this.height);
-
-    if (this.isBG) {
-      this.player.mute();
-    }
+    this.scalePlayer(this.width, this.height);
+    this.player.mute();
 
     if (this.autoPlay) {
       this.player.playVideo();
@@ -103,9 +97,8 @@ export class VideoPlayerComponent implements OnInit, DoCheck {
     //  CUED = 5
     switch (event.data) {
       case -1: case 0: {
-        this.isPlaying = false;
-
         if (this.isBG) {
+          if (!this.player) {return; }
           this.player.mute();
           this.player.seekTo(this.start, true);
           this.player.playVideo();
@@ -113,18 +106,20 @@ export class VideoPlayerComponent implements OnInit, DoCheck {
         break;
       }
       case 1: {
-        this.state = 'ready';
-        this.isPlaying = true;
+        if (!this.isBG) {
+          this.player.setVolume(100);
+          this.player.unMute();
+        }
         break;
       }
       case 3: {
-        this.isPlaying = false;
         break;
       }
     }
   }
 
-  scale(w: number, h: number) {
+  scalePlayer(w: number, h: number) {
+    if (!this.player) {return; }
     this.setQuality();
 
     // background player
@@ -149,9 +144,21 @@ export class VideoPlayerComponent implements OnInit, DoCheck {
   }
 
   setQuality() {
-    if (!this.player) {return; }
     this.quality = this.isXS ? 'hd720' : 'hd1080';
     this.player.setPlaybackQuality(this.quality);
+  }
+
+  resetPlayer(currId: string) {
+    this.isShowing = false;
+    this.videoId = currId;
+    this.checkVars();
+
+    if (this.player) {
+      this.player.stopVideo();
+      this.player.destroy();
+      this.player = undefined;
+    }
+    this.cd.detectChanges();
   }
 
 }

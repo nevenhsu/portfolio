@@ -48,12 +48,9 @@ h2, p, small {
 
 .icon-down {
   position: absolute;
-  left: 0;
-  top: 100vh;
+  bottom: 2em;
   width: 100%;
   height: 24px;
-  transform: translate(0, -150%);
-  -webkit-transform: translate(0, -150%);
 }
 
 .background-image {
@@ -67,3 +64,10 @@ h2, p, small {
 .play-btn {
   cursor: pointer;
 }
+
+.img-block {
+  width: 100vw;
+  height: 100vh;
+  opacity: 0;
+}
+

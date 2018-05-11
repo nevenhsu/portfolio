@@ -1,5 +1,7 @@
 import hexToRgba = require('hex-rgba');
 
+// TODO: darken gradients
+
 export const GRADIENTS = [{
   1: 'FED5CB',
   2: 'FF6B6B'

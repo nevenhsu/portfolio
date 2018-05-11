@@ -11,6 +11,8 @@ import { BackgroundImagePipe } from 'shared/background-image.pipe';
 })
 export class CarouselItemComponent implements OnInit {
 
+  // TODO: fix font size
+
   @Output('clickItem') clickItem = new EventEmitter<WorkItem>();
   @Output('tapPlay') tapPlay = new EventEmitter<WorkItem>();
   @Input('item') item: WorkItem;

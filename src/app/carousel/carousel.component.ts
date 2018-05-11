@@ -1,4 +1,5 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild
+import {
+  Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild
 } from '@angular/core';
 import { Sliding } from 'shared/enums';
 import { CarouselItemComponent } from './carousel-item/carousel-item.component';
@@ -49,7 +50,7 @@ import { WorkItem } from 'shared/model/work-item';
   ]
 })
 
-export class CarouselComponent implements OnInit {
+export class CarouselComponent implements OnInit, OnChanges {
 
   @ViewChild(CarouselItemComponent, {read: ElementRef}) carouselItem: ElementRef;
   @Output('update') update = new EventEmitter<number>();
@@ -81,6 +82,12 @@ export class CarouselComponent implements OnInit {
 
   ngOnInit() {
     this.resetSlides(this.currentIndex);
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.currentIndex) {
+      this.resetSlides(changes.currentIndex.currentValue);
+    }
   }
 
   get itemWidth(): number {
@@ -208,7 +215,7 @@ export class CarouselComponent implements OnInit {
   }
 
   slideThreshold() {
-    const DENOMINATOR = 1.25;
+    const DENOMINATOR = 1;
     const X = this.distanceX % this.itemWidth;
     const Y = this.distanceY % this.itemHeight;
     if (Y > this.itemHeight / DENOMINATOR || X > this.itemWidth / DENOMINATOR) {
@@ -248,7 +255,6 @@ export class CarouselComponent implements OnInit {
   }
 
   onTap(event) {
-    console.log('1: ', event);
     this.tapCarousel.emit(event);
   }
 

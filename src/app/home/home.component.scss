@@ -14,7 +14,6 @@
   height: 45px;
   left: 0;
   top: 0;
-  background-color: $color-dark;
   cursor: pointer;
 }
 
@@ -32,7 +31,8 @@
 }
 
 .wrapping-title {
-  margin-top: 8rem;
+  margin-top: 6rem;
+  width: 90%;
 }
 
 .play-btn {
@@ -105,14 +105,23 @@
 
 .bg-cover {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 50%;
+  left: 50%;
 }
 
-.bg-cover-zindex {
-  z-index: -200 !important;
+.bg-cover-image {
+  min-height: 100vh;
+  min-width: 100vw;
+  opacity: 1;
+  -webkit-transition: all 0.35s ease-in 0.25s;
+  -moz-transition: all 0.35s ease-in 0.25s;
+  -ms-transition: all 0.35s ease-in 0.25s;
+  -o-transition: all 0.35s ease-in 0.25s;
+  transition: all 0.35s ease-in 0.25s;
+}
+
+.bg-cover-hidden {
+  opacity: 0;
 }
 
 .wrapping-preview {

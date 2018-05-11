@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { WorkDataService } from 'shared/work-data.service';
 import { WorkItem } from 'shared/model/work-item';
 import { SafeStyle } from '@angular/platform-browser';
 import { BackgroundImagePipe } from 'shared/background-image.pipe';
 import { animate, style } from '@angular/animations';
-import { FADE, SLIDE } from 'shared/animation/animations';
+import { FADE, SHRINK, SLIDE } from 'shared/animation/animations';
 
 @Component({
   selector: 'app-work',
@@ -13,14 +13,13 @@ import { FADE, SLIDE } from 'shared/animation/animations';
   styleUrls: ['./work.component.scss'],
   animations: [
       SLIDE,
-      FADE
+      FADE,
+      SHRINK
   ]
 })
 export class WorkComponent implements OnInit {
 
-  // TODO: Detect isXS
-  // TODO: Add images
-  // TODO: Create full screen player component
+  // TODO: fix horizon image loading position
 
   item: WorkItem;
   backgroundImage: SafeStyle;
@@ -28,6 +27,8 @@ export class WorkComponent implements OnInit {
   isXS: boolean;
   isShowPlayer: boolean;
   width: number;
+  isBlocking: boolean;
+
   fadeAnimation = [
     style({opacity: 0, transform: 'translateY(16px)'}),
     animate('500ms ease-in-out', style({opacity: 1, transform: 'translateY(0px)'}))
@@ -42,6 +43,7 @@ export class WorkComponent implements OnInit {
     this.width = window.innerWidth;
     this.isXS = this.width < 576;
     this.isShowPlayer = false;
+    this.isBlocking = true;
   }
 
   getItem() {
@@ -91,6 +93,10 @@ export class WorkComponent implements OnInit {
 
   onTapClose() {
     this.isShowPlayer = false;
+  }
+
+  hideBlock() {
+    this.isBlocking = false;
   }
 
 }

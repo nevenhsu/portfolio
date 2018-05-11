@@ -20,7 +20,6 @@ import { CarouselItemComponent } from './carousel/carousel-item/carousel-item.co
 import { VideoPlayerComponent } from 'shared/video-player/video-player.component';
 import { CategoryComponent } from './category/category.component';
 import { ProgressBarComponent } from './progress-bar/progress-bar.component';
-import { WorkBriefComponent } from './work-brief/work-brief.component';
 import { MyHammerConfig } from './my-hammer-config';
 import { FullscreenPlayerComponent } from 'shared/fullscreen-player/fullscreen-player.component';
 import { PreviewComponent } from './preview/preview.component';
@@ -39,7 +38,6 @@ import { AnimateInModule } from 'ngx-animate-in';
     VideoPlayerComponent,
     CategoryComponent,
     ProgressBarComponent,
-    WorkBriefComponent,
     FullscreenPlayerComponent,
     PreviewComponent,
     BackgroundImagePipe,

@@ -17,9 +17,7 @@ import { FADE, SLIDE } from 'shared/animation/animations';
   ]
 })
 export class HomeComponent implements OnInit, AfterViewChecked {
-
-  // TODO: Show video player animation
-
+  
   @ViewChild('bgVideoPlayerComponent') bgVideoPlayerComponent: VideoPlayerComponent;
   items: Array<WorkItem>;
   item: WorkItem;
@@ -32,13 +30,12 @@ export class HomeComponent implements OnInit, AfterViewChecked {
   videoId: string;
   start: number;
   end: number;
-  bgCoverImage: SafeStyle;
-  isBgVideoChanged: boolean;
   isBgVideoPlaying: boolean;
   isShowCarousel: boolean;
   isShowCategory: boolean;
   isShowPlayer: boolean;
   isPanning: boolean;
+  isReseted: boolean;
 
   constructor(private workDataService: WorkDataService,
               private cd: ChangeDetectorRef,
@@ -51,16 +48,13 @@ export class HomeComponent implements OnInit, AfterViewChecked {
     this.isShowCarousel = this.isXS;
     this.isShowCategory = false;
     this.items = this.workDataService.items;
-    this.currentIndex = 0;
+    this.currentIndex = this.workDataService.currentIndex;
     this.setItem(this.currentIndex);
-    this.isBgVideoChanged = true;
   }
 
   ngAfterViewChecked() {
-    if (!this.isBgVideoChanged) {
-      this.isBgVideoChanged = true;
-      this.cd.detectChanges();
-    }
+    this.isReseted = true;
+    this.cd.detectChanges();
   }
 
   recheck(event) {
@@ -71,7 +65,6 @@ export class HomeComponent implements OnInit, AfterViewChecked {
   }
 
   togglingCarousel(event) {
-    console.log(event);
     if (event.target.className.includes('carousel-back')) {
       this.isShowCarousel = this.isXS ? true : !this.isShowCarousel;
     }
@@ -82,16 +75,16 @@ export class HomeComponent implements OnInit, AfterViewChecked {
   }
 
   setItem(index) {
-    this.isBgVideoChanged = false;
     this.isBgVideoPlaying = false;
+    this.isReseted = false;
 
     const INDEX = CarouselComponent.loopIndex(index, this.items);
     this.currentIndex = INDEX;
+    this.workDataService.currentIndex = INDEX;
     this.item = this.items[INDEX];
     this.videoId = this.item.videoId;
     this.start = this.item.startSeconds;
     this.end = this.item.endSeconds;
-    this.bgCoverImage = this.backgrondImage.transform(this.item.cover);
 
     this.cd.detectChanges();
   }

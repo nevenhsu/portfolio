@@ -6,7 +6,9 @@
 
     <div *ngIf="!isShowCategory && !isShowPlayer"
          @fade
-         class="logo zindex-modal"></div>
+         class="logo zindex-modal">
+        <img class="absolute-center" src="assets/images/icons/logo.png" height="40" width="40"/>
+    </div>
 
     <app-category (toggling)="togglingCategory($event)"
                   [currentTitle]="item.category"
@@ -41,9 +43,10 @@
             </ng-template>
         </div>
 
-        <ng-container *ngIf="isBgVideoChanged && checkShowCarousel() && !isShowPlayer && !isPanning">
+        <ng-container *ngIf="checkShowCarousel() && !isShowPlayer && !isPanning">
             <div *ngIf="isXS" class="background-gradient absolute-center"></div>
-            <app-video-player (changeState)="onBgStateChange($event)"
+            <app-video-player [@fade]="isBgVideoPlaying"
+                              (changeState)="onBgStateChange($event)"
                               [videoId]="videoId"
                               [width]="windowWidth"
                               [height]="windowHeight"
@@ -88,10 +91,10 @@
 
 
     <div [@fade]="item.cover"
-         [style.background-image]="bgCoverImage"
-         [class.bg-cover-zindex]="isBgVideoPlaying"
-         class="bg-cover background-cover zindex-background"
-    ></div>
+         class="d-block bg-cover absolute-center zindex-background"
+    ><img *ngIf="isReseted"
+          [class.bg-cover-hidden]="isBgVideoPlaying"
+          class="d-block bg-cover-image" [src]="item.cover | imgur" /></div>
 
     <app-fullscreen-player @fade
                            *ngIf="isShowPlayer"
